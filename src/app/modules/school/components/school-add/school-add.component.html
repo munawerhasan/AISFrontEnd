@@ -1,0 +1,290 @@
+<p-toast></p-toast>
+<p-panel header="Add New School Details">
+    <!-- <p-panel *ngIf="!isAddMode" header="Update School Details"> -->
+    <!-- <p-panel header ="Add New School Details"> -->
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="p-grid">
+            <div class="p-col-12">
+                <div class="card">
+                    <h6>Add School Logo</h6>
+                    <p-fileUpload name="demo[]" url="./upload.php" (onUpload)="onUpload($event)" multiple="multiple"
+                        accept="image/*" maxFileSize="1000000">
+                        <ng-template pTemplate="content">
+                            <ul *ngIf="uploadedFiles.length">
+                                <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}} bytes</li>
+                            </ul>
+                        </ng-template>
+                    </p-fileUpload>
+                    <div class="p-fluid p-formgrid p-grid">
+                        <div class="p-field p-col-12 p-md-3">
+                            <input id="firstname6" type="text" name="schoolName" formControlName="schoolName"
+                                placeholder="School Name" pInputText>
+                            <small class="messages text-danger" *ngIf="form.controls.schoolName.errors?.required 
+            && (form.controls.schoolName.dirty || form.controls.schoolName.touched) || 
+            (submitted && form.controls.schoolName.errors?.required)">School Name Required</small>
+                        </div>
+                        <div class="p-field p-col-12 p-md-3">
+                            <input id="schoolCode" type="text" name="schoolCode" formControlName="schoolCode"
+                                placeholder="School Code" pInputText>
+                            <small class="messages text-danger" *ngIf="form.controls.schoolCode.errors?.required 
+                        && (form.controls.schoolCode.dirty || form.controls.schoolCode.touched) || 
+                        (submitted && form.controls.schoolCode.errors?.required)">School Code Required</small>
+                        </div>
+                        <div class="p-field p-col-12 p-md-3">
+                            <p-dropdown inputId="organizationType" [options]="organizationType"
+                                placeholder="Organization Type" optionLabel="name">
+                            </p-dropdown>
+                        </div>
+                        <div class="p-field p-col-12 p-md-3">
+                            <p-dropdown inputId="affilatedTo" [options]="affilatedTo" placeholder="Affilated To"
+                                optionLabel="name">
+                            </p-dropdown>
+                        </div>
+                        <div class="p-field p-col-12 p-md-3">
+                            <input id="schoolEmail" type="email" name="schoolEmail" formControlName="schoolEmail"
+                                placeholder="School Email" pInputText>
+                            <small class="messages text-danger" *ngIf="form.controls.schoolEmail.errors?.required 
+                          && (form.controls.schoolEmail.dirty || form.controls.schoolEmail.touched) || 
+                          (submitted && form.controls.schoolEmail.errors?.required)">School Email
+                                Required</small>
+                        </div>
+                        <div class="p-field p-col-12 p-md-3">
+                            <input id="registrationNumber" type="text" name="registrationNumber"
+                                formControlName="registrationNumber" placeholder="Registration Number" pInputText>
+                            <small class="messages text-danger" *ngIf="form.controls.registrationNumber.errors?.required 
+                          && (form.controls.registrationNumber.dirty || form.controls.registrationNumber.touched) || 
+                          (submitted && form.controls.registrationNumber.errors?.required)">registration Number
+                                Required</small>
+                        </div>
+                        <div class="p-field p-col-12 p-md-3">
+                            <input id="tagline" type="text" name="tagline" formControlName="tagline"
+                                placeholder="Tagline" pInputText>
+                        </div>
+                        <div class="p-field p-col-12 p-md-3">
+                            <textarea id="description" [rows]="1" [cols]="30" pInputTextarea placeholder="Description"
+                                name="description" formControlName="description"></textarea>
+                        </div>
+                    </div>
+                    <div class="p-fluid p-formgrid p-grid">
+                        <div class="p-field p-col-12 p-md-4">
+                            <input id="address1" type="text" name="address1" formControlName="address1"
+                                placeholder="Address1" pInputText>
+                            <small class="messages text-danger" *ngIf="form.controls.address1.errors?.required 
+                    && (form.controls.address1.dirty || form.controls.address1.touched) || 
+                    (submitted && form.controls.address1.errors?.required)">Address Required</small>
+                        </div>
+                        <div class="p-field p-col-12 p-md-4">
+                            <input id="address2" type="text" name="address2" formControlName="address2"
+                                placeholder="Address2" pInputText>
+                        </div>
+                        <div class="p-field p-col-12 p-md-4">
+                            <input id="tahsheel" type="text" placeholder="Tahsheel" pInputText>
+
+                        </div>
+                        <div class="p-field p-col-12 p-md-4">
+                            <input id="city" type="text" name="city" formControlName="city" placeholder="City"
+                                pInputText>
+                            <small class="messages text-danger" *ngIf="form.controls.city.errors?.required 
+                    && (form.controls.city.dirty || form.controls.city.touched) || 
+                    (submitted && form.controls.city.errors?.required)">City Required</small>
+                        </div>
+                        <div class="p-field p-col-12 p-md-4">
+                            <p-dropdown inputId="state" [options]="states" formControlName="stateId"
+                                placeholder="Select State" optionLabel="name">
+                            </p-dropdown>
+                            <small class="messages text-danger" *ngIf="form.controls.stateId.errors?.required 
+                                && (form.controls.stateId.dirty || form.controls.stateId.touched) || 
+                                (submitted && form.controls.stateId.errors?.required)">State Required</small>
+                        </div>
+                        <div class="p-field p-col-12 p-md-4">
+                            <p-inputMask name="phoneNumber" formControlName="pinCode" placeholder="PIN Code"
+                                mask="999999">
+                            </p-inputMask>
+                            <small class="messages text-danger" *ngIf="form.controls.pinCode.errors?.required 
+                                && (form.controls.pinCode.dirty || form.controls.pinCode.touched) || 
+                                (submitted && form.controls.pinCode.errors?.required)">Pin Code Required</small>
+                        </div>
+
+                        <div class="p-field p-col-12 p-md-4">
+                            <input id="bankName" type="text" name="bankName" formControlName="bankName"
+                                placeholder="Bank Name" pInputText>
+                            <small class="messages text-danger" *ngIf="form.controls.bankName.errors?.required 
+                                    && (form.controls.bankName.dirty || form.controls.bankName.touched) || 
+                                    (submitted && form.controls.bankName.errors?.required)">Bank Name Required</small>
+                        </div>
+                        <div class="p-field p-col-12 p-md-4">
+                            <p-inputMask name="ifsc" formControlName="ifscCode" placeholder="IFSC Code"
+                                mask="***********"></p-inputMask>
+                            <small class="messages text-danger" *ngIf="form.controls.ifscCode.errors?.required 
+                                             && (form.controls.ifscCode.dirty || form.controls.ifscCode.touched) || 
+                                             (submitted && form.controls.ifscCode.errors?.required)">IFSC Code
+                                Required</small>
+                        </div>
+                        <div class="p-field p-col-12 p-md-4">
+                            <p-inputMask name="account" formControlName="accountNo" placeholder="Account Number"
+                                mask="9999999999999999"></p-inputMask>
+                            <small class="messages text-danger" *ngIf="form.controls.accountNo.errors?.required 
+                                          && (form.controls.accountNo.dirty || form.controls.accountNo.touched) || 
+                                          (submitted && form.controls.accountNo.errors?.required)">Account Number
+                                Required</small>
+                        </div>
+                        <div class="p-field p-col-12 p-md-4">
+                            <input id="bankAddress" type="text" name="bankAddress" formControlName="bankAddress"
+                                placeholder="Bank Address" pInputText>
+                            <small class="messages text-danger" *ngIf="form.controls.bankAddress.errors?.required 
+                                    && (form.controls.bankAddress.dirty || form.controls.bankAddress.touched) || 
+                                    (submitted && form.controls.bankAddress.errors?.required)">Bank Address
+                                Required</small>
+                        </div>
+                        <div class="p-field p-col-12 p-md-4">
+                            <input id="paymentLink" type="text" name="paymentLink" formControlName="paymentLink"
+                                placeholder="Payment Link" pInputText>
+                            <small class="messages text-danger" *ngIf="form.controls.paymentLink.errors?.required 
+                                    && (form.controls.paymentLink.dirty || form.controls.paymentLink.touched) || 
+                                    (submitted && form.controls.paymentLink.errors?.required)">Payment Link
+                                Required</small>
+                        </div>
+                        <div class="p-field p-col-12 p-md-4">
+                            <textarea id="additionalInfo" [rows]="1" [cols]="30" placeholder="Additional Info"
+                                pInputTextarea name="additionalInfo" formControlName="additionalInfo"></textarea>
+                            <small class="messages text-danger" *ngIf="form.controls.additionalInfo.errors?.required 
+                                      && (form.controls.additionalInfo.dirty || form.controls.additionalInfo.touched) || 
+                                      (submitted && form.controls.additionalInfo.errors?.required)">Additional Info
+                                Required</small>
+                        </div>
+                        <!-- </div> -->
+                    </div>
+                    <!-- <div class="p-header">
+                    <h6>Owner Detail</h6>
+                </div> -->
+                    <div class="p-fluid p-formgrid p-grid">
+                        <div class="p-field p-col-12 p-md-4">
+                            <input id="ownerName" type="text" name="ownerName" formControlName="ownerName"
+                                placeholder="Owner Name" pInputText>
+                            <small class="messages text-danger" *ngIf="form.controls.ownerName.errors?.required 
+            && (form.controls.ownerName.dirty || form.controls.ownerName.touched) || 
+            (submitted && form.controls.ownerName.errors?.required)">Owner Name Required</small>
+                        </div>
+                        <div class="p-field p-col-12 p-md-4">
+                            <p-inputMask type="text" name="ownerContactNo" formControlName="ownerContactNo"
+                                placeholder="Owner Contact No" mask="9999999999">
+                            </p-inputMask>
+                            <small class="messages text-danger" *ngIf="form.controls.ownerContactNo.errors?.required 
+                        && (form.controls.ownerContactNo.dirty || form.controls.ownerContactNo.touched) || 
+                        (submitted && form.controls.ownerContactNo.errors?.required)">Owner Contact No Required</small>
+                        </div>
+                        <div class="p-field p-col-12 p-md-4">
+                            <input id="ownerEmail" type="text" name="ownerEmail" formControlName="ownerEmail"
+                                placeholder="Owner Email" pInputText>
+                            <small class="messages text-danger" *ngIf="form.controls.ownerEmail.errors?.required 
+                        && (form.controls.ownerEmail.dirty || form.controls.ownerEmail.touched) || 
+                        (submitted && form.controls.ownerEmail.errors?.required)">Owner Email Required</small>
+                        </div>
+
+                        <div class="p-field p-col-12 p-md-3">
+                            <p-dropdown [options]="Gender" formControlName="gender" placeholder="Select Gender"
+                                optionLabel="name">
+                            </p-dropdown>
+                            <small class="messages text-danger" *ngIf="form.controls.gender.errors?.required 
+                            && (form.controls.gender.dirty || form.controls.gender.touched) || 
+                            (submitted && form.controls.gender.errors?.required)">Gender Required</small>
+
+
+                        </div>
+                        <div class="p-field p-col-12 p-md-3">
+                            <p-calendar inputId="calendar" formControlName="dob" [showIcon]="true" placeholder="DOB">
+                            </p-calendar>
+                            <!-- <input id="dob" type="date" name="dob" formControlName="dob"
+                                pInputText> -->
+                            <small class="messages text-danger" *ngIf="form.controls.dob.errors?.required 
+                        && (form.controls.dob.dirty || form.controls.dob.touched) || 
+                        (submitted && form.controls.dob.errors?.required)">DOB Required</small>
+                        </div>
+                        <div class="p-field p-col-12 p-md-3">
+                            <p-dropdown inputId="uidType" [options]="uid" formControlName="uidType"
+                                placeholder="Uid Type" optionLabel="name">
+                            </p-dropdown>
+                            <small class="messages text-danger" *ngIf="form.controls.uidType.errors?.required 
+            && (form.controls.uidType.dirty || form.controls.uidType.touched) || 
+            (submitted && form.controls.uidType.errors?.required)">Owner uidType Required</small>
+                        </div>
+
+                        <div class="p-field p-col-12 p-md-3">
+                            <input id="uidNumber" type="text" name="uidNumber" formControlName="uidNumber"
+                                placeholder="Uid Number" pInputText>
+                            <small class="messages text-danger" *ngIf="form.controls.uidNumber.errors?.required 
+            && (form.controls.uidNumber.dirty || form.controls.uidNumber.touched) || 
+            (submitted && form.controls.uidNumber.errors?.required)">Owner uidNumber Required</small>
+                        </div>
+                    </div>
+                    <!-- </div>
+        </div>
+    </div>
+    <div class="p-grid">
+        <div class="p-col-12">
+            <div class="card">
+                <div class="p-header">
+                    <h6>SMS Configuration Details</h6>
+                </div> -->
+                    <div class="p-fluid p-formgrid p-grid">
+                        <div class="p-field p-col-12 p-md-3">
+                            <input id="smsUserId" type="text" placeholder="SMS UserId" pInputText>
+                            <!-- <small class="messages text-danger" *ngIf="form.controls.smsUserId.errors?.required 
+                && (form.controls.smsUserId.dirty || form.controls.smsUserId.touched) || 
+                (submitted && form.controls.smsUserId.errors?.required)">Ums User Id Required</small> -->
+                        </div>
+
+                        <div class="p-field p-col-12 p-md-3">
+                            <input id="password" type="password" placeholder="Password" pInputText>
+                            <!-- <small class="messages text-danger" *ngIf="form.controls.password.errors?.required 
+                && (form.controls.password.dirty || form.controls.password.touched) || 
+                (submitted && form.controls.password.errors?.required)">Password Required</small> -->
+
+                        </div>
+                        <div class="p-field p-col-12 p-md-2">
+                            <input id="senderId" type="text" placeholder="Sender Id" pInputText>
+                            <!-- <small class="messages text-danger" *ngIf="form.controls.senderId.errors?.required 
+                        && (form.controls.senderId.dirty || form.controls.senderId.touched) || 
+                        (submitted && form.controls.senderId.errors?.required)">senderId Required</small> -->
+                        </div>
+                        <div class="p-field p-col-12 p-md-4">
+                            <input id="apiKey" type="text" placeholder="Api Key" pInputText>
+                            <!-- <small class="messages text-danger" *ngIf="form.controls.apiKey.errors?.required 
+                        && (form.controls.apiKey.dirty || form.controls.apiKey.touched) || 
+                        (submitted && form.controls.apiKey.errors?.required)">apiKey Required</small> -->
+                        </div>
+                    </div>
+                    <!-- <div class="p-header p-field p-col-12 ">
+                    <h6>Email Configuration Details</h6>
+                </div> -->
+                    <div class="p-fluid p-formgrid p-grid">
+                        <div class="p-field p-col-12 p-md-4">
+                            <input id="formMailId" type="text" placeholder="Form MailId" pInputText>
+                            <!-- <small class="messages text-danger" *ngIf="form.controls.formMailId.errors?.required 
+                && (form.controls.formMailId.dirty || form.controls.formMailId.touched) || 
+                (submitted && form.controls.formMailId.errors?.required)">formMailId Required</small> -->
+                        </div>
+
+                        <div class="p-field p-col-12 p-md-4">
+                            <input id="userId" type="text" placeholder="User Id" pInputText>
+                            <!-- <small class="messages text-danger" *ngIf="form.controls.userId.errors?.required 
+                            && (form.controls.userId.dirty || form.controls.userId.touched) || 
+                            (submitted && form.controls.userId.errors?.required)">User Id Required</small> -->
+
+                        </div>
+                        <div class="p-field p-col-12 p-md-4">
+                            <input id="password1" type="password" placeholder="Password" pInputText>
+                            <!-- <small class="messages text-danger" *ngIf="form.controls.password.errors?.required 
+                && (form.controls.password.dirty || form.controls.password.touched) || 
+                (submitted && form.controls.password.errors?.required)">Password Required</small> -->
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <p-button label="Save" type="submit"></p-button>
+
+    </form>
+</p-panel>

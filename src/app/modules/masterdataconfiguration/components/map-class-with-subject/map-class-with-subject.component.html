@@ -1,0 +1,103 @@
+<div *ngIf="loader">
+    <div class="splash-screen">
+        <div class="splash-loader"></div>
+    </div>
+</div>
+<div class="p-grid">
+    <div class="p-col">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <p-panel header="Class Mapping With Subject">
+                <div class="p-grid">
+                    <div class="p-col-12 p-md-4 p-sm-12">
+                        <p-listbox [listStyle]="{'max-height':'290px'}" formControlName="masterClassId"  (onClick)="onSelectClass($event)"
+                            [options]="classMaster" [style]="{'width':'auto'}" optionLabel="name" [filter]="true">
+                        </p-listbox>
+                    </div>
+                    <div class="p-col-12 p-md-8">
+                        <div class="p-grid">
+                            <div class="p-col-12 p-md-12">
+                                <p-listbox [checkbox]="true" [multiple]="true" formControlName="masterSubjectId"
+                                    [listStyle]="{'max-height':'250px'}" [style]="{'width':'auto'}"
+                                    [options]="subjectMaster" optionLabel="subjectName" [filter]="true">
+                                </p-listbox>
+                            </div>
+                        </div>
+                    </div>
+                    <p-button label="Add Mapping" icon="pi pi-check" type="submit" class="p-button p-p-0 p-mr-2">
+                    </p-button>
+                    <p-button label="Mapping List" icon="pi pi-check" (click)="mappingList()"
+                        class="p-button p-p-0 p-mr-2">
+                    </p-button>
+                    <!-- <button type="submit"  class="btn btn-primary ripple light pull-right"> Add Mapping </button> -->
+
+                </div>
+            </p-panel>
+        </form>
+    </div>
+    <p-toast></p-toast>
+    <div class="p-col">
+        <p-panel header="">
+
+            <p-table #dtc [value]="subjectList" dataKey="id"
+                styleClass="p-datatable-customers p-datatable-gridlines p-datatable-striped p-datatable-sm"
+                [scrollable]="true" scrollHeight="600px" [filterDelay]="0" [rowHover]="true"
+                [globalFilterFields]="['name','code']" [paginator]="true" [rows]="rows" [showCurrentPageReport]="true"
+                [(first)]="first" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                [rowsPerPageOptions]="[10,25,50]">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th pSortableColumn="masterClassName">Class Name
+                            <p-sortIcon field="masterClassName"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="sectionName">Section Name
+                            <p-sortIcon field="sectionName"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="masterSubjectName">Subject Name
+                            <p-sortIcon field="masterSubjectName"></p-sortIcon>
+                        </th>
+                        <th>
+                            Action
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-batch>
+                    <tr [pSelectableRow]="batch">
+
+                        <td>
+                            <span class="p-column-title">Class Name</span>
+                            {{batch.masterClassName}}
+                        </td>
+                        <td>
+                            <span class="p-column-title">Section Name</span>
+                            {{batch.sectionName}}
+                        </td>
+                        <td>
+                            <span class="p-column-title">Subject Names</span>
+                            {{batch.masterSubjectName}}
+                        </td>
+                        <td> <a><i class="pi pi-trash"></i></a></td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                        <td colspan="8">No data found.</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+            <!-- <p-table #dtc [value]="data" dataKey="id" [rowHover]="true"
+                styleClass="p-datatable-customers p-datatable-gridlines p-datatable-striped p-datatable-sm"
+                [scrollable]="true" scrollHeight="600px" [filterDelay]="0"
+                [globalFilterFields]="['masterClassName','sectionName','subjectName']" [paginator]="true"
+                [showCurrentPageReport]="true"
+                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                [rowsPerPageOptions]="[10,25,50]">
+               
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                        <td colspan="8">No data found.</td>
+                    </tr>
+                </ng-template>
+            </p-table> -->
+        </p-panel>
+    </div>
+</div>

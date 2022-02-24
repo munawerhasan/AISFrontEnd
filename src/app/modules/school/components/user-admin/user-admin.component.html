@@ -1,0 +1,165 @@
+<div class="p-grid">
+    <div class="p-col-12">
+        <!-- Start User Table -->
+        <p-panel header="School Admin User List">
+            <p-toolbar styleClass="p-mb-2">
+                <ng-template pTemplate="left">
+                    <button pButton pRipple label="User" icon="pi pi-plus" class="p-button-success p-mr-2 p-mb-1"
+                        (click)="openNew()"></button>
+                    <button pButton pRipple label="Import" icon="pi pi-download" class="p-button-help p-mb-1"
+                        (click)="dt.exportCSV()"></button>
+                </ng-template>
+                <span class="p-input-icon-left">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" (input)="dtc.filterGlobal($event.target.value, 'contains')"
+                        placeholder="School Code, School Name, User Name" />
+                </span>
+            </p-toolbar>
+            <p-table #dtc [value]="data" dataKey="id"
+                styleClass="p-datatable-customers p-datatable-gridlines p-datatable-striped p-datatable-sm"
+                [scrollable]="true" scrollHeight="600px" [filterDelay]="0"
+                [globalFilterFields]="['userName','schoolName','schoolCode']" [paginator]="true" [rows]="rows"
+                [showCurrentPageReport]="true" [(first)]="first"
+                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                [rowsPerPageOptions]="[10,25,50]">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th pSortableColumn="schoolName" style="width:250px">School Name
+                        </th>
+                        <th pSortableColumn="schoolCode">School Code
+                        </th>
+                        <th pSortableColumn="userName">User Name
+                        </th>
+                        <th pSortableColumn="firstName" style="width:250px">Full Name
+                        </th>
+                        <th pSortableColumn="firstName">Role
+                        </th>
+                        <th pSortableColumn="email" style="width:300px">Email
+                        </th>
+                        <th pSortableColumn="action">Action
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-school>
+                    <tr [pSelectableRow]="school">
+                        <td style="width:250px">
+                            <span class="p-column-title">School Name</span>
+                            {{school.schoolName}}
+                        </td>
+                        <td>
+                            <span class="p-column-title">School Code</span>
+                            {{school.schoolCode}}
+                        </td>
+                        <td>
+                            <span class="p-column-title">User Name</span>
+                            {{school.userName}}
+                        </td>
+                        <td style="width:250px">
+                            <span class="p-column-title">Full Name</span>
+                            {{school.firstName}}{{school.middleName}}{{school.lastName}}
+                        </td>
+                        <td>
+                            <span class="p-column-title">Role</span>
+                            {{school.role}}
+                        </td>
+                        <td style="width:300px">
+                            <span class="p-column-title">Email</span>
+                            {{school.email}}
+                        </td>
+                        <td>
+                            <a [routerLink]="['/school/changePassword']"><i class="pi pi-user-edit f-16 m-r-15"></i></a>&#160;&#160;
+                            <a href="javascript:"><i class="pi pi-trash f-16"></i></a>&#160;&#160;
+                            <a [routerLink]="['/school/changePassword', school.userId,school.userName]"><i class="pi pi-lock f-16 m-r-15"></i></a>
+                            <!-- <p-splitButton [model]="items" icon="pi pi-cog" styleClass="p-button-info p-mr-0 p-mb-0">
+                            </p-splitButton> -->
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                        <td colspan="8">No customers found.</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </p-panel>
+        <!-- End User Tabla -->
+        <!-- Start Dialog BOX -->
+       
+        <p-toast></p-toast>
+            <p-dialog [(visible)]="productDialog" [style]="{width: '600px'}" header="Add New User" [modal]="true"
+                styleClass="p-fluid">
+                <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                <!-- <ng-template pTemplate="content"> -->
+                    <div class="p-field">
+                        <p-dropdown inputId="schoolName" [options]="schools" [filter]=true  placeholder="Select School Name" formControlName="schoolId"
+                            optionLabel="schoolName">
+                            <ng-template let-fs pTemplate="item">
+                                <div class="option-row">
+                                  <div class="">{{fs.value.schoolName}} - {{fs.value.schoolCode}}</div>
+                                </div>
+                              </ng-template>
+                        </p-dropdown>   
+                    </div>
+                    <div class="p-field">
+                        <p-dropdown  [options]="roles"  placeholder="Select User Role" formControlName="role"
+                            optionLabel="roleName">
+                        </p-dropdown>   
+                    </div>
+                    <div class="p-formgrid p-grid">
+                        <div class="p-field p-col">
+                            <input id="firstName" type="text" name="firstName" formControlName="firstName"  placeholder="First Name" pInputText>
+                            <small class="messages text-danger" *ngIf="form.controls.firstName.errors?.required 
+                && (form.controls.firstName.dirty || form.controls.firstName.touched) || 
+                (submitted && form.controls.firstName.errors?.required)">First Name Required</small>
+                        </div>
+                        <div class="p-field p-col">
+                            <input id="middleName" type="text" name="middleName" placeholder="Middle Name" formControlName="middleName"
+                                pInputText>
+                            <small class="messages text-danger" *ngIf="form.controls.middleName.errors?.required 
+                        && (form.controls.middleName.dirty || form.controls.middleName.touched) || 
+                        (submitted && form.controls.middleName.errors?.required)">Middle Name Required</small>
+                        </div>
+                        <div class="p-field p-col">
+                            <input id="lastName" type="text" name="lastName" placeholder="Last Name" formControlName="lastName" pInputText>
+                            <small class="messages text-danger" *ngIf="form.controls.lastName.errors?.required 
+                    && (form.controls.lastName.dirty || form.controls.lastName.touched) || 
+                    (submitted && form.controls.lastName.errors?.required)">Last Name Required</small>
+                        </div>
+                    </div>
+                    <div class="p-formgrid p-grid">
+                        <div class="p-field p-col">
+                            <input id="userName" type="text" name="userName" placeholder="User Name" formControlName="userName" pInputText>
+                            <small class="messages text-danger" *ngIf="form.controls.userName.errors?.required 
+            && (form.controls.userName.dirty || form.controls.userName.touched) || 
+            (submitted && form.controls.userName.errors?.required)">User Name Required</small>
+                        </div>
+                        <div class="p-field p-col">
+                            <input id="password" type="text" name="password" placeholder="Password" formControlName="password" pInputText>
+                            <small class="messages text-danger" *ngIf="form.controls.password.errors?.required 
+                && (form.controls.password.dirty || form.controls.password.touched) || 
+                (submitted && form.controls.password.errors?.required)">Password Required</small>
+                        </div>
+                        <div class="p-field p-col">
+                            <input id="confirmPassword" name="confirmPassword" placeholder="Confirm Password" formControlName="confirmPassword"
+                                pInputText>
+                            <small class="messages text-danger" *ngIf="form.controls.confirmPassword.errors?.required 
+                            && (form.controls.confirmPassword.dirty || form.controls.confirmPassword.touched) || 
+                            (submitted && form.controls.confirmPassword.errors?.required)">confirmPassword
+                                Required</small>
+                        </div>
+                    </div>
+                    <div class="p-field">
+                        <input id="email" type="text" name="email" placeholder="Email" formControlName="email" pInputText>
+                        <small class="messages text-danger" *ngIf="form.controls.email.errors?.required 
+            && (form.controls.email.dirty || form.controls.email.touched) || 
+            (submitted && form.controls.email.errors?.required)">Email Required</small>
+                    </div>
+                <!-- </ng-template> -->
+                <!-- <ng-template pTemplate="footer"> -->
+                    <button pButton type="submit" pRipple label="Submit"></button>
+                <!-- </ng-template> -->
+                </form>
+            </p-dialog>
+       
+    </div>
+</div>

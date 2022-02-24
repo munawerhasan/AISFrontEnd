@@ -1,0 +1,426 @@
+<div *ngIf="loader">
+    <div class="splash-screen">
+        <div class="splash-loader"></div>
+    </div>
+</div>
+<div class="card">
+    <p-tabView orientation="left">
+        <p-tabPanel header="Pending-Fee" leftIcon="pi pi-check">
+            <div class="p-grid table-demo">
+                <div class="p-col-12">
+                    <div class="card">
+                        <p-table #dtc [value]="data" dataKey="id" [rowHover]="true"
+                            styleClass="p-datatable-customers p-datatable-gridlines p-datatable-striped p-datatable-sm"
+                            [scrollable]="true" scrollHeight="600px" [filterDelay]="0"
+                            [globalFilterFields]="['studentName','className']" [paginator]="true" [rows]="rows"
+                            [showCurrentPageReport]="true" [(first)]="first"
+                            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                            [rowsPerPageOptions]="[10,25,50]">
+                            <ng-template pTemplate="caption">
+                                <div class="p-d-flex p-flex-column p-flex-md-row p-jc-md-between table-header">
+                                    <!-- Schools -->
+                                    <p-dropdown [options]="masterClasses" (onChange)="onSelectClass($event)"
+                                        [(ngModel)]="masterClassId" placeholder=" Select a Class " optionLabel="name"
+                                        optionValue="masterClassId"></p-dropdown>
+                                    <button type="button" pButton pRipple icon="pi pi-file-excel"
+                                        (click)="exportToExcel()" class="p-button-warning p-mr-2" pTooltip="XLS"
+                                        tooltipPosition="bottom"></button>
+                                </div>
+                            </ng-template>
+                            <ng-template pTemplate="colgroup" let-columns>
+                                <colgroup>
+                                    <col style="width:200px">
+                                    <col style="width:200px">
+                                    <col style="width:200px">
+                                    <col style="width:200px">
+                                    <col style="width:200px">
+                                    <col style="width:200px">
+                                    <col style="width:200px">
+                                    <col style="width:450px">
+                                    <col style="width:200px">
+                                    <col style="width:200px">
+                                    <col style="width:300px">
+                                    <col style="width:200px">
+                                </colgroup>
+                            </ng-template>
+                            <ng-template pTemplate="header">
+                                <tr>
+                                    <th pSortableColumn="studentName">Student Name
+                                        <p-sortIcon field="studentName"></p-sortIcon>
+                                    </th>
+                                    <th pSortableColumn="className">Class-Section
+                                        <p-sortIcon field="className"></p-sortIcon>
+                                    </th>
+                                    <th pSortableColumn="fatherName">Father Name
+                                        <p-sortIcon field="fatherName"></p-sortIcon>
+                                    </th>
+                                    <th pSortableColumn="motherName">Mother Name
+                                        <p-sortIcon field="motherName"></p-sortIcon>
+                                    </th>
+                                    <th pSortableColumn="fatherContact">Father Contact
+                                        <p-sortIcon field="fatherContact"></p-sortIcon>
+                                    </th>
+                                    <th pSortableColumn="feeCategory">feeCategory
+                                        <p-sortIcon field="feeCategory"></p-sortIcon>
+                                    </th>
+                                    <th pSortableColumn="busStopName">Bus Stop
+                                        <p-sortIcon field="busStopName"></p-sortIcon>
+                                    </th>
+                                    <th pSortableColumn="monthName">Month Name
+                                        <p-sortIcon field="monthName"></p-sortIcon>
+                                    </th>
+                                    <th pSortableColumn="totalDue">Total Due
+                                        <p-sortIcon field="totalDue"></p-sortIcon>
+                                    </th>
+                                    <th pSortableColumn="listGenratedDate">List Genrated Date
+                                        <p-sortIcon field="listGenratedDate"></p-sortIcon>
+                                    </th>
+                                    <th pSortableColumn="lastDueDate">Last Due Date
+                                        <p-sortIcon field="lastDueDate"></p-sortIcon>
+                                    </th>
+                                    <th pSortableColumn="activeStatus">Status
+                                        <p-sortIcon field="activeStatus"></p-sortIcon>
+                                    </th>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-pending>
+                                <tr [pSelectableRow]="pending">
+                                    <td>
+                                        <span class="p-column-title">Student Name</span>
+                                        {{pending.studentName}}
+                                    </td>
+                                    <td>
+                                        <span class="p-column-title">Class-Section</span>
+                                        {{pending.className}}-{{pending.sectionName}}
+                                    </td>
+                                    <td>
+                                        <span class="p-column-title">Father Name</span>
+                                        {{pending.fatherName}}
+                                    </td>
+                                    <td>
+                                        <span class="p-column-title">Mother Name</span>
+                                        {{pending.motherName }}
+                                    </td>
+                                    <td>
+                                        <span class="p-column-title">Father Contact</span>
+                                        {{pending.fatherContact}}
+                                    </td>
+                                    <td>
+                                        <span class="p-column-title">Fee Category</span>
+                                        {{pending.feeCategory}}
+                                    </td>
+                                    <td>
+                                        <span class="p-column-title">Bus Stop</span>
+                                        {{pending.busStopName}}
+                                    </td>
+                                    <td>
+                                        <span class="p-column-title">Month Name</span>
+                                        {{pending.monthName}}
+                                    </td>
+                                    <td>
+                                        <span class="p-column-title">Total Due</span>
+                                        {{pending.totalDue | currency:'INR'}}
+                                    </td>
+                                    <td>
+                                        <span class="p-column-title">List Genrated Date</span>
+                                        {{pending.listGenratedDate }}
+                                    </td>
+                                    <td>
+                                        <span class="p-column-title">List Genrated Date</span>
+                                        {{pending.lastDueDate }}
+                                    </td>
+                                    <td>
+                                        <span class="p-column-title">Status</span>
+                                        {{pending.activeStatus}}
+                                    </td>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="footer" let-sale>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td><b>{{sumOfDue | currency:'INR'}}</b></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                    </div>
+                </div>
+            </div>
+        </p-tabPanel>
+        <p-tabPanel header="Month Wise-Pending Fee" leftIcon="pi pi-check">
+            <div class="p-grid table-demo">
+                <div class="p-col-12">
+                    <div class="card">
+                        <p-table #dtc [value]="pendingFeeByGroup.pendingFeeByMonth" dataKey="id" [rowHover]="true"
+                            styleClass="p-datatable-customers p-datatable-gridlines p-datatable-striped p-datatable-sm"
+                            [scrollable]="true" scrollHeight="600px" [filterDelay]="0"
+                            [globalFilterFields]="['name','count']" [paginator]="true" [rows]="rows"
+                            [showCurrentPageReport]="true" [(first)]="first"
+                            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                            [rowsPerPageOptions]="[10,25,50]">
+                            <ng-template pTemplate="caption">
+                                <div class="p-d-flex p-flex-column p-flex-md-row p-jc-md-right table-header">
+                                    <button type="button" pButton pRipple icon="pi pi-file-excel"
+                                        (click)="exportToExcel()" class="p-button-warning p-mr-2" pTooltip="XLS"
+                                        tooltipPosition="bottom"></button>
+                                </div>
+                            </ng-template>
+                            <ng-template pTemplate="colgroup" let-columns>
+                                <colgroup>
+                                    <col style="width:600px">
+                                    <col style="width:200px">
+                                    <col style="width:200px">
+                                </colgroup>
+                            </ng-template>
+                            <ng-template pTemplate="header">
+                                <tr>
+                                    <th pSortableColumn="name">Month Name
+                                        <p-sortIcon field="name"></p-sortIcon>
+                                    </th>
+                                    <th pSortableColumn="count">Count
+                                        <p-sortIcon field="count"></p-sortIcon>
+                                    </th>
+                                    <th pSortableColumn="sum">Total Amount
+                                        <p-sortIcon field="sum"></p-sortIcon>
+                                    </th>
+
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-penByGroup>
+                                <tr [pSelectableRow]="penByGroup">
+                                    <td>
+                                        <span class="p-column-title">Month Name</span>
+                                        {{penByGroup.name}}
+                                    </td>
+                                    <td>
+                                        <span class="p-column-title">Count</span>
+                                        {{penByGroup.count}}
+                                    </td>
+                                    <td>
+                                        <span class="p-column-title">Total Amount</span>
+                                        {{penByGroup.sum | currency:'INR'}}
+                                    </td>
+
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="footer" let-sale>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td><b>{{totalGroupByAmount | currency:'INR'}}</b></td>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="emptymessage">
+                                <tr>
+                                    <td colspan="8">No customers found.</td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                    </div>
+                </div>
+            </div>
+        </p-tabPanel>
+        <p-tabPanel header="Amount Wise-Pending Fee" leftIcon="pi pi-check">
+            <div class="p-grid table-demo">
+                <div class="p-col-12">
+                    <div class="card">
+                        <p-table #dtc [value]="pendingFeeByGroup.pendingFeeByAmount" [rowHover]="true" dataKey="id"
+                            styleClass="p-datatable-customers p-datatable-gridlines p-datatable-striped p-datatable-sm"
+                            [scrollable]="true" scrollHeight="600px" [filterDelay]="0"
+                            [globalFilterFields]="['name','schoolName']" [paginator]="true" [rows]="rows"
+                            [showCurrentPageReport]="true" [(first)]="first"
+                            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                            [rowsPerPageOptions]="[10,25,50]">
+                            <ng-template pTemplate="caption">
+                                <div class="p-d-flex p-flex-column p-flex-md-row p-jc-md-right table-header">
+                                    <button type="button" pButton pRipple icon="pi pi-file-excel"
+                                        (click)="exportToExcel()" class="p-button-warning p-mr-2" pTooltip="XLS"
+                                        tooltipPosition="bottom"></button>
+                                </div>
+                            </ng-template>
+                            <ng-template pTemplate="header">
+                                <tr>
+                                    <th pSortableColumn="name">Due Amount
+                                        <p-sortIcon field="name"></p-sortIcon>
+                                    </th>
+                                    <th pSortableColumn="count">Count
+                                        <p-sortIcon field="count"></p-sortIcon>
+                                    </th>
+                                    <th pSortableColumn="sum">Total Amount
+                                        <p-sortIcon field="sum"></p-sortIcon>
+                                    </th>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-penByGroup>
+                                <tr [pSelectableRow]="penByGroup">
+                                    <td>
+                                        <span class="p-column-title">Due Amount</span>
+                                        {{penByGroup.name}}
+                                    </td>
+                                    <td>
+                                        <span class="p-column-title">Count</span>
+                                        {{penByGroup.count}}
+                                    </td>
+                                    <td>
+                                        <span class="p-column-title">Total Amount</span>
+                                        {{penByGroup.sum | currency:'INR'}}
+                                    </td>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="footer" let-sale>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td><b>{{totalGroupByAmount | currency:'INR'}}</b></td>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="emptymessage">
+                                <tr>
+                                    <td colspan="8">No customers found.</td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                    </div>
+                </div>
+            </div>
+        </p-tabPanel>
+        <p-tabPanel header="Class Wise-Pending Fee" leftIcon="pi pi-check">
+            <div class="p-grid table-demo">
+                <div class="p-col-12">
+                    <div class="card">
+                        <p-table #dtc [value]="pendingFeeByGroup.pendingFeeByClass" dataKey="id" [rowHover]="true"
+                            styleClass="p-datatable-customers p-datatable-gridlines p-datatable-striped p-datatable-sm"
+                            [scrollable]="true" scrollHeight="600px" [filterDelay]="0"
+                            [globalFilterFields]="['name','schoolName']" [paginator]="true" [rows]="rows"
+                            [showCurrentPageReport]="true" [(first)]="first"
+                            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                            [rowsPerPageOptions]="[10,25,50]">
+                            <ng-template pTemplate="caption">
+                                <div class="p-d-flex p-flex-column p-flex-md-row p-jc-md-right table-header">
+                                    <button type="button" pButton pRipple icon="pi pi-file-excel"
+                                        (click)="exportToExcel()" class="p-button-warning p-mr-2" pTooltip="XLS"
+                                        tooltipPosition="bottom"></button>
+                                </div>
+                            </ng-template>
+                            <ng-template pTemplate="header">
+                                <tr>
+                                    <th pSortableColumn="name">Class Name
+                                        <p-sortIcon field="name"></p-sortIcon>
+                                    </th>
+                                    <th pSortableColumn="count">Count
+                                        <p-sortIcon field="count"></p-sortIcon>
+                                    </th>
+                                    <th pSortableColumn="sum">Total Amount
+                                        <p-sortIcon field="sum"></p-sortIcon>
+                                    </th>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-penByGroup>
+                                <tr [pSelectableRow]="penByGroup">
+                                    <td>
+                                        <span class="p-column-title">Class Name</span>
+                                        {{penByGroup.name}}
+                                    </td>
+                                    <td>
+                                        <span class="p-column-title">Count</span>
+                                        {{penByGroup.count}}
+                                    </td>
+                                    <td>
+                                        <span class="p-column-title">Total Amount</span>
+                                        {{penByGroup.sum | currency:'INR'}}
+                                    </td>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="footer" let-sale>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td><b>{{totalGroupByAmount | currency:'INR'}}</b></td>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="emptymessage">
+                                <tr>
+                                    <td colspan="8">No customers found.</td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                    </div>
+                </div>
+            </div>
+        </p-tabPanel>
+        <p-tabPanel header="Class & Section Wise-Pending Fee" leftIcon="pi pi-check">
+            <div class="p-grid table-demo">
+                <div class="p-col-12">
+                    <div class="card">
+                        <p-table #dtc [value]="pendingFeeByGroup.pendingFeeByClassSection" dataKey="id"
+                            styleClass="p-datatable-customers p-datatable-gridlines p-datatable-striped p-datatable-sm"
+                            [scrollable]="true" scrollHeight="600px" [filterDelay]="0" [rowHover]="true"
+                            [globalFilterFields]="['name','code']" [paginator]="true" [rows]="rows"
+                            [showCurrentPageReport]="true" [(first)]="first"
+                            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                            [rowsPerPageOptions]="[10,25,50]">
+                            <ng-template pTemplate="caption">
+                                <div class="p-d-flex p-flex-column p-flex-md-row p-jc-md-right table-header">
+                                    <button type="button" pButton pRipple icon="pi pi-file-excel"
+                                        (click)="exportToExcel()" class="p-button-warning p-mr-2" pTooltip="XLS"
+                                        tooltipPosition="bottom"></button>
+                                </div>
+                            </ng-template>
+                            <ng-template pTemplate="header">
+                                <tr>
+                                    <th pSortableColumn="name">Class Section
+                                        <p-sortIcon field="name"></p-sortIcon>
+                                    </th>
+                                    <th pSortableColumn="count">Count
+                                        <p-sortIcon field="count"></p-sortIcon>
+                                    </th>
+                                    <th pSortableColumn="sum">Total Amount
+                                        <p-sortIcon field="sum"></p-sortIcon>
+                                    </th>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-penByGroup>
+                                <tr [pSelectableRow]="batch">
+                                    <td>
+                                        <span class="p-column-title"> Name</span>
+                                        {{penByGroup.name}}
+                                    </td>
+                                    <td>
+                                        <span class="p-column-title">Count</span>
+                                        {{penByGroup.count}}
+                                    </td>
+                                    <td>
+                                        <span class="p-column-title">Total Amount</span>
+                                        {{penByGroup.sum | currency:'INR'}}
+                                    </td>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="footer" let-sale>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td><b>{{totalGroupByAmount | currency:'INR'}}</b></td>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="emptymessage">
+                                <tr>
+                                    <td colspan="8">No customers found.</td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                    </div>
+                </div>
+            </div>
+        </p-tabPanel>
+
+    </p-tabView>
+</div>

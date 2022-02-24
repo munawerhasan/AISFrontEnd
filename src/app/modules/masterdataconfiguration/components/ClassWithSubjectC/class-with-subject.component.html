@@ -1,0 +1,83 @@
+<div *ngIf="loader">
+    <div class="splash-screen">
+        <div class="splash-loader"></div>
+    </div>
+</div>
+<div class="p-grid">
+    <p-panel header="Class & Subject Mapping Details">
+        <div class="p-col-12">
+            <p-toolbar styleClass="p-mb-2">
+                <ng-template pTemplate="right">
+                    <button pButton pRipple label="Mapping" icon="pi pi-plus" class="p-button-success p-mr-2 p-mb-1"
+                        (click)="openNew()"></button>
+                    <button pButton pRipple label="Class" icon="pi pi-plus" class="p-button-success p-mr-2 p-mb-1"
+                        (click)="addClass()"></button>
+                    <button pButton pRipple label="Section" icon="pi pi-plus" class="p-button-success p-mr-2 p-mb-1"
+                        (click)="addSection()"></button>
+                    <button pButton pRipple label="Import" icon="pi pi-download" class="p-button-help p-mb-1"
+                        (click)="dt.exportCSV()"></button>
+                </ng-template>
+                <span class="p-input-icon-left">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" (input)="dtc.filterGlobal($event.target.value, 'contains')"
+                        placeholder="Global Search" />
+                </span>
+            </p-toolbar>
+            <p-table #dtc [value]="data" dataKey="id" [rowHover]="true"
+                styleClass="p-datatable-customers p-datatable-gridlines p-datatable-striped p-datatable-sm"
+                [scrollable]="true" scrollHeight="600px" [filterDelay]="0"
+                [globalFilterFields]="['masterClassName','masterSubjectName']" [paginator]="true" [rows]="rows"
+                [showCurrentPageReport]="true" [(first)]="first"
+                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                [rowsPerPageOptions]="[10,25,50]">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th pSortableColumn="className">Series
+                            <p-sortIcon field="className"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="masterClassName">Class Name
+                            <p-sortIcon field="masterClassName"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="masterSubjectName">Subject Name
+                            <p-sortIcon field="masterSubjectName"></p-sortIcon>
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-classWithSubjectdata let-rowIndex="rowIndex">
+                    <tr [pSelectableRow]="classWithSubjectdata">
+                        <td>
+                            <span class="p-column-title">Series</span>
+                            {{rowIndex+1}}
+                        </td>
+                        <td>
+                            <span class="p-column-title">Class Name</span>
+                            {{classWithSubjectdata.masterClassName}}
+                        </td>
+                        <!-- <td>
+                            <span class="p-column-title">Class Code</span>
+                            {{classWithSubjectdata.masterClassName}}
+                        </td> -->
+                        <td>
+                            <span class="p-column-title">Subject Name</span>
+                            {{classWithSubjectdata.masterSubjectName}}
+                        </td>
+                        <!-- <td>
+                            <span class="p-column-title">Subject Code</span>
+                            {{classWithSubjectdata.subjectCode}}
+                        </td> -->
+
+                        <!-- <td><a>
+                                <i class="fa fa-pencil-square-o f-16 m-r-15"></i>
+                            </a><a href="javascript:" (click)="openNew()"><i class="pi pi-user-edit"></i></a></td> -->
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                        <td colspan="8">No customers found.</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+
+        </div>
+    </p-panel>
+</div>

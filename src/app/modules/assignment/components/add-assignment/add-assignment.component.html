@@ -1,0 +1,98 @@
+<p-toast></p-toast>
+<div class="p-grid">
+    <div class="p-col-12">
+            <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                <div class="p-grid">
+                    <div class="p-col">
+                        <p-panel header="Add New Assignment">
+                            <div class="p-fluid p-formgrid p-grid">
+                                <div class="p-field p-col-12 p-md-4">
+                                    <p-dropdown placeholder="Select Class" [options]="classData" filter="true"
+                                        formControlName="ClassId" optionLabel="name" (onChange)="onSelectClass($event)">
+                                    </p-dropdown>
+                                    <small class="messages text-danger" *ngIf="form.controls.ClassId.errors?.required 
+                                    && (form.controls.ClassId.dirty || form.controls.ClassId.touched) || 
+                                    (submitted && form.controls.ClassId.errors?.required)">Class Required!</small>
+                                </div>
+                                <div class="p-field p-col-12 p-md-4">
+                                    <p-dropdown placeholder="Select Section" [options]="sectionData" filter="true"
+                                        formControlName="SectionId" optionLabel="sectionName"
+                                        (onChange)="onSelectSection($event)"></p-dropdown>
+                                    <small class="messages text-danger" *ngIf="form.controls.SectionId.errors?.required 
+                                        && (form.controls.SectionId.dirty || form.controls.SectionId.touched) || 
+                                        (submitted && form.controls.SectionId.errors?.required)">Section
+                                        Required!</small>
+                                </div>
+                                <div class="p-field p-col-12 p-md-4">
+                                    <p-dropdown placeholder="Select Subject" [options]="subjectData" (onChange)="onSelectSubject($event)" filter="true"
+                                        formControlName="SubjectId" optionLabel="subjectName"></p-dropdown>
+                                    <small class="messages text-danger" *ngIf="form.controls.SubjectId.errors?.required 
+            && (form.controls.SubjectId.dirty || form.controls.SubjectId.touched) || 
+            (submitted && form.controls.SubjectId.errors?.required)">Subject Required!</small>
+                                </div>
+                                <div class="p-field p-col-12 p-md-4">
+                                    <p-dropdown placeholder="Select Unit" [options] ='masterUnit' formControlName="SubjectUnitId" (onChange)="onSelectUnit($event)" filter="true"
+                                        optionLabel="unitTitle"></p-dropdown>
+                                </div>
+                                <div class="p-field p-col-12 p-md-4">
+                                    <p-dropdown placeholder="Select Chapter" [options] ='masterChapter' formControlName="SubjectChapterId" (onChange)="onSelectChapter($event)"  filter="true"
+                                        optionLabel="chapterTitle"></p-dropdown>
+                                </div>
+
+                                <div class="p-field p-col-12 p-md-4">
+                                    <p-dropdown placeholder="Select Topic" [options] ='masterTopic' formControlName="SubjectTopicId" filter="true" optionLabel="topicTitle"></p-dropdown>
+                                </div>
+                                <div class="p-field p-col-12 p-md-4">
+                                    <input type="text" formControlName="Name" placeholder="Assignment Title" pInputText>
+                                    <small class="messages text-danger" *ngIf="form.controls.Name.errors?.required 
+                                    && (form.controls.Name.dirty || form.controls.Name.touched) || 
+                                    (submitted && form.controls.Name.errors?.required)">Assignment Title
+                                        Required!</small>
+                                </div>
+                                <div class="p-field p-col-12 p-md-4">
+                                    <p-dropdown placeholder="Select Assignment Type" [options]="selectType"
+                                        formControlName="AssignmentType" optionLabel="name"></p-dropdown>
+                                    <small class="messages text-danger" *ngIf="form.controls.AssignmentType.errors?.required 
+            && (form.controls.AssignmentType.dirty || form.controls.AssignmentType.touched) || 
+            (submitted && form.controls.AssignmentType.errors?.required)">Type Required!</small>
+                                </div>
+                                <div class="p-field p-col-12 p-md-4">
+                                    <input id="date" type="date" formControlName="ToBeSubmittedDate"
+                                        pTooltip="Last Submit Date" tooltipPosition="top" pInputText>
+                                    <small class="messages text-danger" *ngIf="form.controls.ToBeSubmittedDate.errors?.required 
+                                        && (form.controls.ToBeSubmittedDate.dirty || form.controls.ToBeSubmittedDate.touched) || 
+                                        (submitted && form.controls.ToBeSubmittedDate.errors?.required)"> Last Submit
+                                        Date Required!</small>
+                                </div>
+                                <div class="p-field p-col-12  p-md-12 p-col-sm-12">
+                                    <textarea type="text" rows="3" placeholder="Assignment Description"
+                                        formControlName="Description" pInputTextarea></textarea>
+                                    <small class="messages text-danger" *ngIf="form.controls.Description.errors?.required 
+            && (form.controls.Description.dirty || form.controls.Description.touched) || 
+            (submitted && form.controls.Description.errors?.required)">Description Required!</small>
+                                </div>
+                                
+                                <div class="p-field p-col-12 p-md-12">
+                                    <p-fieldset legend="Attach-File" [collapsed]="true" [toggleable]="true">
+                                        <p-fileUpload name="Files[]" chooseLabel="File" (onSelect)="onUpload($event)" url="./upload.php" [showCancelButton]="true" [showUploadButton]="false" multiple="multiple"
+                                        accept="image/*,.csv,.xml,.doc,.docx,.pdf" maxFileSize="9000000">
+                                    </p-fileUpload>
+                                    </p-fieldset>
+                                </div>
+                                <div class="p-field p-col-12 p-md-4 ">
+                                    <span class="p-buttonset">
+                                        <button pButton pRipple label="Save" type="submit" icon="pi pi-check"
+                                            class="p-mr-2 p-mb-1"></button>
+                                        <button pButton pRipple label="Go To List" (click)="goToAssignment()"
+                                            class="p-mr-2 p-mb-1"></button>
+                                        <button pButton pRipple label="Reset" type="reset" icon="pi pi-times"
+                                            class="p-mb-1"></button>
+                                    </span>
+                                </div>
+                            </div>
+                        </p-panel>
+                    </div>
+                </div>
+            </form>
+    </div>
+</div>

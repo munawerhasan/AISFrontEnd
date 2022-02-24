@@ -1,0 +1,136 @@
+<div *ngIf="loader">
+    <div class="splash-screen">
+        <div class="splash-loader"></div>
+    </div>
+</div>
+<div class="p-grid">
+    <div class="p-col">
+        <p-panel header="Employee Details">
+            <div class="p-grid list-demo">
+                <div class="p-col-12">
+                    <div class="p-mt-0">
+                        <p-toolbar class="p-mt-0">
+                            <ng-template pTemplate="right">
+                                <button pButton pRipple label="Employee" icon="pi pi-plus"
+                                    class="p-button-success p-mr-2 p-mb-1" (click)="addNewEmployee()"></button>
+                                <button pButton pRipple label="Import" icon="pi pi-download"
+                                    class="p-button-help p-mb-1" (click)="dt.exportCSV()"></button>
+                            </ng-template>
+                            <span class="p-input-icon-left">
+                                <i class="pi pi-search"></i>
+                                <input pInputText type="text"
+                                    (input)="dtc.filterGlobal($event.target.value, 'contains')"
+                                    placeholder="Find The Employee" />
+                            </span>
+                        </p-toolbar>
+                        <p-table #dtc [value]="employeeList" dataKey="id" [rowHover]="true"
+                            styleClass="p-datatable-customers p-datatable-gridlines p-datatable-striped p-datatable-sm"
+                            [scrollable]="true" scrollHeight="600px" [filterDelay]="0"
+                            [globalFilterFields]="['firstName', 'employeeCode']" [paginator]="true"
+                            [rows]="rows" [showCurrentPageReport]="true" [(first)]="first"
+                            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                            [rowsPerPageOptions]="[10,25,50]">
+                            <ng-template pTemplate="colgroup" let-columns>
+                                <colgroup>
+                                    <col style="width:200px">
+                                    <col style="width:175px">
+                                    <col style="width:175px">
+                                    <col style="width:150px">
+                                    <col style="width:150px">
+                                    <col style="width:150px">
+                                    <col style="width:150px">
+                                    <col style="width:150px">
+                                </colgroup>
+                            </ng-template>
+                            <ng-template pTemplate="header">
+                                <tr>
+                                    <th pSortableColumn="firstName">Emp Name
+                                        <p-sortIcon field="firstName"></p-sortIcon>
+                                    </th>
+                                    <th pSortableColumn="userName">Emp Login ID
+                                        <p-sortIcon field="userName"></p-sortIcon>
+                                    </th>
+                                    <!-- <th pSortableColumn="employeeCode">Employee Code
+                                        <p-sortIcon field="employeeCode"></p-sortIcon>
+                                    </th> -->
+                                    <th pSortableColumn="masterEmployeeId">Job Specialization
+                                        <p-sortIcon field="masterEmployeeId"></p-sortIcon>
+                                    </th>
+                                    <th pSortableColumn="masterDepartmentId">Department Name
+                                        <p-sortIcon field="masterDepartmentId"></p-sortIcon>
+                                    </th>
+                                    <th pSortableColumn="joiningDate">Joining Date
+                                        <p-sortIcon field="joiningDate"></p-sortIcon>
+                                    </th>
+                                    <th pSortableColumn="appointmentDate">Appointment Date
+                                        <p-sortIcon field="appointmentDate"></p-sortIcon>
+                                    </th>
+                                    <th pSortableColumn="activeStatus">Status
+                                        <p-sortIcon field="activeStatus"></p-sortIcon>
+                                    </th>
+                                    <th>Action</th>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-list>
+                                <tr [pSelectableRow]="list">
+                                    <td>
+                                        <span class="p-column-title">Emp Name</span>
+                                        <img [alt]="list.firstName" src="assets/demo/images/avatar/amyelsner.png"
+                                            width="32" style="vertical-align: middle" />
+                                        {{list.firstName+" "+list.middleName+" "+list.lastName}}
+                                    </td>
+                                    <td>
+                                        <span class="p-column-title">Emp Login ID</span>
+
+                                        {{list.userName}}
+                                    </td>
+                                    <!-- <td>
+                                        <span class="p-column-title">Employee Code</span>
+                                        {{list.employeeCode}}
+                                    </td> -->
+                                    <td>
+                                        <span class="p-column-title">Job Specialization</span>
+                                        {{list.masterEmployeeName}}
+                                    </td>
+                                    <td>
+                                        <span class="p-column-title">Department Name</span>
+                                        {{list.masterDepartmentName}}
+                                    </td>
+                                    <td>
+                                        <span class="p-column-title">Joining Date</span>
+                                        {{list.joiningDate | date}}
+                                    </td>
+                                    <td>
+                                        <span class="p-column-title">Appointment Date</span>
+                                        {{list.appointmentDate | date}}
+                                    </td>
+                                    <td>
+                                        <span class="p-column-title">Status</span>
+                                        <span
+                                            [class]="'customer-badge activeStatus-' + list.activeStatus">{{list.activeStatus
+                                            | statusConversion}}</span>
+                                    </td>
+                                    <td>
+                                        <a [routerLink]="['/employee/updateEmployee', list.employeeId]"><i
+                                                class="pi pi-user-edit f-16 m-r-15"></i></a>&#160;&#160;
+                                        <a href="javascript:"><i class="pi pi-trash f-16"></i></a>&#160;&#160;
+                                        <a href="javascript:"><i class="pi pi-lock f-16 m-r-15"></i></a>
+                                    </td>
+
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="emptymessage">
+                                <tr>
+                                    <td colspan="8">No customers found.</td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                    </div>
+                </div>
+
+            </div>
+
+        </p-panel>
+    </div>
+
+</div>

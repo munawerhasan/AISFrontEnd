@@ -1,0 +1,37 @@
+<div class="dashboard-banking">
+    <div class="p-grid overview-boxes ">
+        <div class="p-col-12 p-md-12 p-lg-12">
+            <div class="overview clearfix">
+                <div class="overview-icon">
+                    <img src="assets/layout/images/dashboard-banking/icon-transfer.png" alt="avalon-layout" width="52"
+                        class="icon-transfer" />
+                </div>
+                <div class="overview-subtitle p-text-bold p-text-center p-p-2">
+                    <h4> {{currentUserSchoolName}}</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div [ngSwitch]="conditionExpression">
+        <div *ngSwitchCase="'Admin'">
+            <app-pending-fee></app-pending-fee><br>
+            <app-teacher-mapping-subject></app-teacher-mapping-subject>
+            <!-- <app-class-and-section-student-count></app-class-and-section-student-count>
+            <app-attendance></app-attendance> -->
+        </div>
+        <div *ngSwitchCase="'Management'">
+            <app-pending-fee></app-pending-fee>
+            <app-teacher-mapping-subject></app-teacher-mapping-subject>
+            <!-- <app-class-and-section-student-count></app-class-and-section-student-count>
+            <app-attendance></app-attendance> -->
+        </div>
+        <div *ngSwitchCase="'Student'">
+             <app-student-dashboard></app-student-dashboard>
+        </div>
+        <div *ngSwitchCase="'Teacher'">
+            <app-teacher-mapping-subject></app-teacher-mapping-subject>
+       </div>
+    </div>
+</div>

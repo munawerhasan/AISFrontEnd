@@ -1,0 +1,300 @@
+<div class="dashboard-banking">
+    <div class="p-grid overview-boxes">
+        <div class="p-col-12 p-md-4 p-lg-2">
+            <div class="overview clearfix p-shadow-6">
+                <div class="overview-icon">
+                    <img src="assets/layout/images/dashboard-banking/icon-transfer.png" alt="avalon-layout" width="52" class="icon-transfer" />
+                </div>
+                <div class="overview-text">
+                    <span class="overview-subtitle">Present-24</span>
+                </div>
+            </div>
+        </div>
+        <div class="p-col-12 p-md-4 p-lg-2">
+            <div class="overview clearfix p-shadow-6">
+                <div class="overview-icon">
+                    <img src="assets/layout/images/dashboard-banking/icon-creditcards.png" alt="avalon-layout" width="52" class="icon-creditcards" />
+                </div>
+
+                <div class="overview-text">
+                    <span class="overview-subtitle">Absent-1</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="p-col-12 p-md-4 p-lg-2">
+            <div class="overview clearfix p-shadow-6">
+                <div class="overview-icon">
+                    <img src="assets/layout/images/dashboard-banking/icon-cardtransfer.png" alt="avalon-layout" width="52" class="icon-cardtransfer" />
+                </div>
+
+                <div class="overview-text">
+                    <span class="overview-subtitle">Leave-0</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="p-col-12 p-md-4 p-lg-3">
+            <div class="overview clearfix p-shadow-6">
+                <div class="overview-icon">
+                    <img src="assets/layout/images/dashboard-banking/icon-receivemoney.png" alt="avalon-layout" width="52" class="icon-receivemoney" />
+                </div>
+
+                <div class="overview-text">
+                    <span class="overview-subtitle">Half Day Leave-1</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="p-col-12 p-md-4 p-lg-3">
+            <div class="overview clearfix p-shadow-6">
+                <div class="overview-icon">
+                    <img src="assets/layout/images/dashboard-banking/icon-transactions.png" alt="avalon-layout" width="52" class="icon-transactions" />
+                </div>
+
+                <div class="overview-text">
+                    <span class="overview-subtitle">Total Working Days</span>
+                    <span class="overview-subtitle">20</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="p-grid financial-overview p-mt-1">
+        <div class="p-col-12 p-md-6 p-lg-6">
+            <div class="card p-shadow-6">
+                <h5>Pending Fee Details</h5>
+                <div class="panel-inner">
+                    <div class="financial-overview-line">
+                        <div class="line-left">
+                            <span class="line-icon">
+                                <i class="pi pi-money-bill"></i>
+                            </span>
+                            <span class="line-label">Fee Category</span>
+                        </div>
+                        <div class="line-right">
+                            <span class="line-value">{{pendingFeeData.feeCategory}}</span>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="financial-overview-line">
+                        <div class="line-left pull-left">
+                            <span class="line-icon">
+                                <i class="pi pi-briefcase"></i>
+                            </span>
+                            <span class="line-label">Bus Stop Name</span>
+                        </div>
+                        <div class="line-right pull-right ">
+                            <span class="line-value"><code>{{pendingFeeData.busStopName}}</code></span>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="financial-overview-line">
+                        <div class="line-left pull-left">
+                            <span class="line-icon">
+                                <i class="pi pi-globe"></i>
+                            </span>
+                            <span class="line-label">Month Name</span>
+                        </div>
+                        <div class="line-right pull-right ">
+                            <span class="line-value">{{pendingFeeData.monthName }}</span>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="financial-overview-line">
+                        <div class="line-left pull-left">
+                            <span class="line-icon">
+                                <i class="pi pi-dollar"></i>
+                            </span>
+                            <span class="line-label">Last Payment Date </span>
+                        </div>
+                        <div class="line-right pull-right ">
+                            <span class="line-value">{{pendingFeeData.lastDueDate | date:'mediumDate'}}</span>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <hr>
+                    <div class="financial-overview-line">
+                        <div class="line-left pull-left">
+                            <span class="line-icon">
+                                <i class="pi pi-globe"></i>
+                            </span>
+                            <span class="line-label">Total Due</span>
+                        </div>
+                        <div class="line-right pull-right ">
+                            <span class="line-value"><code>{{pendingFeeData.totalDue}}</code></span>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <hr>
+                    <button pButton pRipple type="button" label="Pay Now" class="p-button-outlined p-mb-0"></button>
+                </div>
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-6">
+            <div class="card p-shadow-6 widget-contacts">
+                <h5>Teacher Member</h5>
+                <ul>
+                    <li class="clearfix">
+                        <img src="assets/layout/images/avatar.png" width="45">
+                        <div class="contact-info">
+                            <span class="name">Manoj Kumar </span>
+                            <span class="location">Maths</span>
+                        </div>
+                        <div class="contact-actions">
+                            <i class="pi pi-mobile p-mr-2"></i>
+                            <span class="connection-status online">7428660116</span>
+                        </div>
+                    </li>
+                    <li class="clearfix">
+                        <img src="assets/layout/images/avatar1.png" width="45">
+                        <div class="contact-info">
+                            <span class="name">Aasifa Khan</span>
+                            <span class="location">Science</span>
+                        </div>
+                        <div class="contact-actions">
+                            <i class="pi pi-mobile p-mr-2"></i>
+                            <span class="connection-status online">9428660120</span>
+                        </div>
+                    </li>
+                    <li class="clearfix">
+                        <img src="assets/layout/images/avatar2.png" width="45">
+                        <div class="contact-info">
+                            <span class="name">Vikram sharma</span>
+                            <span class="location">English</span>
+                        </div>
+                        <div class="contact-actions">
+                            <i class="pi pi-mobile p-mr-2"></i>
+                            <span class="connection-status online">9628660110</span>
+                        </div>
+                    </li>
+                    <li class="clearfix">
+                        <img src="assets/layout/images/avatar3.png" width="45">
+                        <div class="contact-info">
+                            <span class="name">Ravindra chauhan</span>
+                            <span class="location">Hindi</span>
+                        </div>
+                        <div class="contact-actions">
+                            <i class="pi pi-mobile p-mr-2"></i>
+                            <span class="connection-status online">9928660120</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="p-shadow-6  p-col-12 p-md-12 p-lg-12">
+            <p-panel header="Transection Details">
+                <p-toolbar class="p-mt-0">
+                    <ng-template pTemplate="right">
+                        <button pButton pRipple label="Import" icon="pi pi-download" class="p-button-help p-mb-1"
+                            (click)="dt.exportCSV()"></button>
+                    </ng-template>
+                    <span class="p-input-icon-left">
+                        <i class="pi pi-search"></i>
+                        <input pInputText type="text" (input)="dtc.filterGlobal($event.target.value, 'contains')"
+                            placeholder="Global Search" />
+                    </span>
+                </p-toolbar>
+                <p-table #dtc [value]="data" dataKey="id"
+                    styleClass="p-datatable-customers p-datatable-gridlines p-datatable-striped p-datatable-sm"
+                    [scrollable]="true" scrollHeight="600px" [filterDelay]="0" [rowHover]="true"
+                    [globalFilterFields]="['receiptId','monthName','receiptBy']" [paginator]="true" [rows]="rows"
+                    [showCurrentPageReport]="true" [(first)]="first"
+                    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                    [rowsPerPageOptions]="[10,25,50]">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th pSortableColumn="receiptId">Receipt Id
+                                <p-sortIcon field="receiptId"></p-sortIcon>
+                            </th>
+                            <th pSortableColumn="paymentMode">Payment Mode
+                                <p-sortIcon field="paymentMode"></p-sortIcon>
+                            </th>
+                            <th pSortableColumn="monthName">Month Name
+                                <p-sortIcon field="monthName"></p-sortIcon>
+                            </th>
+                            <th pSortableColumn="totalAmount">Total Amount
+                                <p-sortIcon field="totalAmount"></p-sortIcon>
+                            </th>
+                            <th pSortableColumn="discount">Discount
+                                <p-sortIcon field="discount"></p-sortIcon>
+                            </th>
+                            <th pSortableColumn="netAmount">Net Amount
+                                <p-sortIcon field="netAmount"></p-sortIcon>
+                            </th>
+                            <th pSortableColumn="paidAmount">Paid Amount
+                                <p-sortIcon field="paidAmount"></p-sortIcon>
+                            </th>
+                            <th pSortableColumn="due">Due Amount
+                                <p-sortIcon field="due"></p-sortIcon>
+                            </th>
+                            <th pSortableColumn="advance">Advance
+                                <p-sortIcon field="advance"></p-sortIcon>
+                            </th>
+                            <th pSortableColumn="paymentDate">Payment Date
+                                <p-sortIcon field="paymentDate"></p-sortIcon>
+                            </th>
+                            <th pSortableColumn="receiptBy">Receipt By
+                                <p-sortIcon field="receiptBy"></p-sortIcon>
+                            </th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-item>
+                        <tr [pSelectableRow]="batch">
+                            <td>
+                                <span class="p-column-title"> Receipt Id</span>
+                                {{item.receiptId}}
+                            </td>
+                            <td>
+                                <span class="p-column-title">Payment Mode</span>
+                                {{item.paymentMode}}
+                            </td>
+                            <td>
+                                <span class="p-column-title">Month Name</span>
+                                {{item.monthName}}
+                            </td>
+                            <td>
+                                <span class="p-column-title">Total Amount</span>
+                                {{item.totalAmount | currency:'INR'}}
+                            </td>
+                            <td>
+                                <span class="p-column-title">Discount</span>
+                                {{item.discount | currency:'INR'}}
+                            </td>
+                            <td>
+                                <span class="p-column-title">Net Amount</span>
+                                {{item.netAmount | currency:'INR'}}
+                            </td>
+                            <td>
+                                <span class="p-column-title">Paid Amount</span>
+                                {{item.paidAmount | currency:'INR'}}
+                            </td>
+                            <td>
+                                <span class="p-column-title">Due Amount</span>
+                                {{item.due | currency:'INR'}}
+                            </td>
+                            <td>
+                                <span class="p-column-title">Advance</span>
+                                {{item.advance | currency:'INR'}}
+                            </td>
+                            <td>
+                                <span class="p-column-title">Payment Date</span>
+                                {{item.paymentDate | date:'medium'}}
+                            </td>
+                            <td>
+                                <span class="p-column-title">Receipt By</span>
+                                {{item.receiptBy}}
+                            </td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="emptymessage">
+                        <tr>
+                            <td colspan="8">No customers found.</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </p-panel>
+        </div>
+    </div>
+    
+</div>

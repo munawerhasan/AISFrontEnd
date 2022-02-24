@@ -1,0 +1,53 @@
+<p-panel header="General Information of Student">
+    <p-accordion>
+        <p-accordionTab header="Class Wise Count">
+            <div class="p-grid">
+                <div class="p-col-12 p-lg-6">
+                    <p-panel header="Student Counting">
+                        <div class="card">
+                            <p-table [value]="countData" [scrollable]="true" scrollHeight="200px">
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th style="width:7rem">Sr.No</th>
+                                        <th>Class</th>
+                                        <th>A</th>
+                                        <th>B</th>
+                                        <th>C</th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-customer let-rowIndex="rowIndex">
+                                    <tr>
+                                        <td>{{rowIndex+1}}</td>
+                                        <!-- <td *ngIf="rowGroupMetadata[customer.representative.name].index === rowIndex" [attr.rowspan]="rowGroupMetadata[customer.representative.name].size">
+                                
+                                        <span class="p-text-bold p-ml-2">{{customer.representative.name}}</span>
+                                    </td> -->
+                                        <td>
+                                            {{customer.className}}
+                                        </td>
+                                        <td>
+                                            {{customer.A}}
+                                        </td>
+                                        <td>
+                                            {{customer.B}}
+                                        </td>
+                                        <td>
+                                            {{customer.C}}
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                        </div>
+                    </p-panel>
+                </div>
+                <div class="p-col-12 p-lg-6">
+                    <p-panel header="Student Counting With Class And Section">
+                        <div class="card">
+                            <p-chart type="bar" [data]="barData"></p-chart>
+                        </div>
+                    </p-panel>
+                </div>
+            </div>
+        </p-accordionTab> 
+    </p-accordion>
+</p-panel>

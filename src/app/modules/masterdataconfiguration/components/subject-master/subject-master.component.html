@@ -1,0 +1,163 @@
+<div *ngIf="loader">
+    <div class="splash-screen">
+        <div class="splash-loader"></div>
+    </div>
+</div>
+<div class="p-grid">
+    <div class="p-col-12">
+        <div class="card">
+            <h6>Subject Details</h6>
+            <p-toolbar styleClass="p-mb-2">
+                <ng-template pTemplate="right">
+                    <button pButton pRipple label="Subject" icon="pi pi-plus" class="p-button-success p-mr-2 p-mb-1"
+                        (click)="openNew()"></button>
+                    <button pButton pRipple label="Import" icon="pi pi-download" class="p-button-help p-mb-1"
+                        (click)="dt.exportCSV()"></button>
+                </ng-template>
+                <span class="p-input-icon-left">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" (input)="dtc.filterGlobal($event.target.value, 'contains')"
+                        placeholder="Global Search" />
+                </span>
+            </p-toolbar>
+            <p-table #dtc [value]="data" dataKey="id" [rowHover]="true"
+                styleClass="p-datatable-customers p-datatable-gridlines p-datatable-striped p-datatable-sm"
+                [scrollable]="true" scrollHeight="600px" [filterDelay]="0"
+                [globalFilterFields]="['subjectName','subjectCode']" [paginator]="true" [rows]="rows"
+                [showCurrentPageReport]="true" [(first)]="first"
+                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                [rowsPerPageOptions]="[10,25,50]">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th pSortableColumn="subjectName">Subject Name
+                            <p-sortIcon field="subjectName"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="subjectCode">Subject Code
+                            <p-sortIcon field="subjectCode"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="marksType">Marks Type
+                            <p-sortIcon field="marksType"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="subjectType">Subject Type
+                            <p-sortIcon field="subjectType"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="displayOrder">Display Order
+                            <p-sortIcon field="displayOrder"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="activeStatus">Status
+                            <p-sortIcon field="activeStatus"></p-sortIcon>
+                        </th>
+                        <th>Action</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-subject>
+                    <tr [pSelectableRow]="subject">
+                        <td>
+                            <span class="p-column-title">Subject Name</span>
+                            {{subject.subjectName}}
+                        </td>
+                        <td>
+                            <span class="p-column-title">Subject Code</span>
+                            {{subject.subjectCode}}
+                        </td>
+                        <td>
+                            <span class="p-column-title">Marks Type</span>
+                            {{subject.marksType}}
+                        </td>
+                        <td>
+                            <span class="p-column-title">Subject Type </span>
+                            {{subject.subjectType}}
+                        </td>
+                        <td>
+                            <span class="p-column-title">Display Order </span>
+                            {{subject.displayOrder}}
+                        </td>
+                        <td>
+                            <span class="p-column-title">Status</span>
+                            <span [class]="'customer-badge activeStatus-' + subject.activeStatus">{{subject.activeStatus
+                                | statusConversion}}</span>
+                        </td>
+                        <td>
+                            <a (click)="openNew(subject.masterSubjectId)"><i class="pi pi-user-edit"></i></a>
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                        <td colspan="8">No customers found.</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+            <!-- Start Dialog Box -->
+            <p-toast></p-toast>
+            <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                <p-dialog [(visible)]="subjectDialog" [style]="{width: '600px', height:'auto'}" header="Add Subject"
+                    [modal]="true" styleClass="p-fluid">
+                    <ng-template pTemplate="content">
+                        <div class="p-field">
+                            <p-dropdown inputId="statuss" [options]="status" placeholder="Select Status"
+                                formControlName="activeStatus" optionLabel="statusName">
+                            </p-dropdown>
+                            <small class="messages text-danger" *ngIf="form.controls.activeStatus.errors?.required 
+            && (form.controls.activeStatus.dirty || form.controls.activeStatus.touched) || 
+            (submitted && form.controls.activeStatus.errors?.required)"> Status Required!</small>
+                        </div>
+                        <div class="p-field p-col">
+                            <input id="subjectGroup" type="text" name="subjectGroup" placeholder="Subject Group"
+                                pInputText>
+                        </div>
+                        <div class="p-field p-col">
+                            <input id="subjectName" type="text" name="subjectName" placeholder="Subject Name"
+                                formControlName="subjectName" pInputText>
+                            <small class="messages text-danger" *ngIf="form.controls.subjectName.errors?.required 
+            && (form.controls.subjectName.dirty || form.controls.subjectName.touched) || 
+            (submitted && form.controls.subjectName.errors?.required)">Subject Name Required!</small>
+                        </div>
+                        <div class="p-formgrid p-grid">
+                            <div class="p-field p-col">
+                                <input id="subjectCode" type="text" name="subjectCode" placeholder="Subject Code"
+                                    formControlName="subjectCode" pInputText>
+                                <small class="messages text-danger" *ngIf="form.controls.subjectCode.errors?.required 
+            && (form.controls.subjectCode.dirty || form.controls.subjectCode.touched) || 
+            (submitted && form.controls.subjectCode.errors?.required)">Subject Code Required!</small>
+                            </div>
+                            <div class="p-field p-col">
+                                <p-dropdown inputId="marksType" [options]="mark" placeholder="Marks Type"
+                                    formControlName="marksType" optionLabel="marksTypes">
+                                </p-dropdown>
+                                <small class="messages text-danger" *ngIf="form.controls.marksType.errors?.required 
+            && (form.controls.marksType.dirty || form.controls.marksType.touched) || 
+            (submitted && form.controls.marksType.errors?.required)">Marks Type!</small>
+                            </div>
+                        </div>
+                        <div class="p-formgrid p-grid">
+                            <div class="p-field p-col">
+                                <p-dropdown inputId="subjectType" [options]="subject" placeholder="Subject Type"
+                                    formControlName="subjectType" optionLabel="subjectTypes">
+                                </p-dropdown>
+                                <small class="messages text-danger" *ngIf="form.controls.subjectType.errors?.required 
+            && (form.controls.subjectType.dirty || form.controls.subjectType.touched) || 
+            (submitted && form.controls.subjectType.errors?.required)">Subject Type!</small>
+                            </div>
+                            <div class="p-field p-col">
+                                <input type="number" name="displayOrder" placeholder="Display Order"
+                                    formControlName="displayOrder" pInputText>
+                                <small class="messages text-danger" *ngIf="form.controls.displayOrder.errors?.required 
+        && (form.controls.displayOrder.dirty || form.controls.displayOrder.touched) || 
+        (submitted && form.controls.displayOrder.errors?.required)">displayOrder Reuired!</small>
+                            </div>
+                        </div>
+                    </ng-template>
+                    <ng-template pTemplate="footer">
+                        <button pButton pRipple label="Cancel" icon="pi pi-times" (click)="cancelDialog()"
+                            class="p-button-text"></button>
+                        <button pButton pRipple label="Save" type="submit" icon="pi pi-check"
+                            class="p-button-text"></button>
+                    </ng-template>
+                </p-dialog>
+            </form>
+            <!-- <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+            <!-- End Dialog Box -->
+        </div>
+    </div>
+</div>

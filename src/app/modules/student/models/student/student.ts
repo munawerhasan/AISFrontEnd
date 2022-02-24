@@ -1,0 +1,29 @@
+export class StudentModel {
+    studentId: number;
+    userId: number;
+    schoolId: number;
+    classId: number;
+    personalDetailId: number;
+    parentDetailId: number;
+    admissionNumber: string;
+    formNumber: string;
+    samagraNumber: string;
+    childNumber: string;
+    rollNumber: number;
+    firstName: string;
+    middleName: string;
+    lastName: string;
+    image: string;
+    joiningDate: Date;
+    sibling: number;
+    scholerType: number;
+    promotionStatus: number;
+    workFlowStatus: number;
+    referBy: number;
+    counselByUserId: number;
+    activeStatus: number;
+    createdByUserId: number;
+    updatedByUserId: number;
+    createdDate: Date;
+    updatedDate: Date;
+}

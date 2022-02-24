@@ -1,0 +1,87 @@
+<div class="p-grid list-demo">
+	<div class="p-col-12">
+		<div class="card">
+			<h5>Add Student Photo</h5>
+			<p-dataView #dv [value]="studentList" [paginator]="true" [rows]="12" filterBy="firstName" layout="grid">
+				<ng-template pTemplate="header">
+					<div class="p-d-flex p-flex-column p-flex-md-row p-jc-md-between">
+						<p-dropdown placeholder="Select Class" [options]="masterClasses" optionLabel="name" (onChange)="onSelectClass($event)"
+							styleClass="p-mb-2 p-mb-md-0"></p-dropdown>
+						<p-dropdown placeholder="Select Section" [options]="masterSections" optionLabel="name" (onChange)="onSelectSection($event)"
+							styleClass="p-mb-2 p-mb-md-0"></p-dropdown>
+						<span class="p-input-icon-left p-mb-2 p-mb-md-0">
+							<i class="pi pi-search"></i>
+							<input type="search" pInputText placeholder="Search by Name"
+								(input)="dv.filter($event.target.value)">
+						</span>
+						<p-dataViewLayoutOptions></p-dataViewLayoutOptions>
+					</div>
+				</ng-template>
+				<ng-template let-product pTemplate="listItem">
+					<div class="p-col-6">
+						<div class="product-list-item">
+							<img [src]="'assets/demo/images/studentImages/01-AADARSH KUMAR.jpg'" />
+							<div class="product-list-detail">
+								<div class="product-name">{{product.firstName}} {{product.middleName}}
+									{{product.lastName}}</div>
+								<div class="product-description">{{product.parentDetail.fatherFullName}}</div>
+								<span class="product-category">{{product.rollNumber}}</span>
+							</div>
+							<div class="product-list-action">
+								<span class="product-price">{{product.admissionNumber}}</span>
+								<p-button icon="pi pi-camera" label="Add Photo"></p-button>
+							</div>
+						</div>
+					</div>
+				</ng-template>
+				<ng-template let-product pTemplate="gridItem">
+					<div class="p-col-12 p-md-2">
+						<div class="product-grid-item card">
+							<div class="product-grid-item-top">
+								<div>
+									<i class="pi pi-tag product-category-icon"></i>
+									<span class="product-category">{{product.rollNumber}}</span>
+								</div>
+
+							</div>
+							<div class="product-grid-item-content">
+								<img [src]="'assets/demo/images/studentImages/01-AADARSH KUMAR.jpg'" />
+								<div class="product-name">{{product.firstName}} {{product.middleName}}
+									{{product.lastName}}</div>
+								<div class="product-description">{{product.parentDetail.fatherFullName}}</div>
+							</div>
+							<div class="product-grid-item-bottom">
+								<span class="product-price">{{product.admissionNumber}}</span>
+								<p-splitButton icon="pi pi-camera" [model]="items" styleClass="p-button-info p-mr-2" (click)="uploadImage()"></p-splitButton>
+							</div>
+						</div>
+					</div>
+				</ng-template>
+			</p-dataView>
+
+			 <!-- Start Dialog Box -->
+			 <p-dialog [(visible)]="imageDialog" [style]="{width: '600px', height:'800px'}" header="Add New Class"
+			 [modal]="true" styleClass="p-fluid">
+			 <ng-template pTemplate="content">
+				<h3>Angular 7 Image Preview before Upload:</h3>
+				<span style="color:red;" *ngIf="message">{{message}}</span>
+				<input #file type="file" accept='image/*' (change)="preview(file.files)" />
+				<img [src]="imgURL" height="200" *ngIf="imgURL">
+			 </ng-template>
+ 
+			 <ng-template pTemplate="footer">
+				 <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text"
+					 (click)="hideDialog()"></button>
+				 <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text"
+					 (click)="saveProduct()"></button>
+ 
+			 </ng-template>
+		 </p-dialog>
+		 <!-- <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog> -->
+		 <!-- End Dialog Box -->
+		</div>
+
+	</div>
+
+
+</div>

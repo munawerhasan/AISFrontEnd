@@ -1,0 +1,185 @@
+<div class="p-grid">
+    <div class="p-col-12">
+        <p-panel header="Syllabus Details">
+            <p-toolbar styleClass="p-mb-2">
+                <ng-template pTemplate="right">
+                    <button pButton pRipple label="Syllabus" icon="pi pi-plus" class="p-button-success p-mr-2 p-mb-1"
+                        ></button>
+                    <button pButton pRipple label="Import" icon="pi pi-download" class="p-button-help p-mb-1"
+                        (click)="dt.exportCSV()"></button>
+                </ng-template>
+                <span class="p-input-icon-left">
+                    <i class="pi pi-search"></i>    
+                    <input pInputText type="text" (input)="dtc.filterGlobal($event.target.value, 'contains')"
+                        placeholder="Global Search" />
+                </span>
+            </p-toolbar>
+            <div class="p-grid">
+                <div class="p-col-12 p-md-2 p-sm-6 p-lg-2">
+                    <p-dropdown [options]="masterClasses"   optionLabel="name" (onChange)="onSelectClass($event)" filter="true" [style]="{'width':'12rem'}"
+                         placeholder="Select a Class" optionLabel="name">
+                    </p-dropdown>
+                </div>
+                <div class="p-col-12 p-md-2 p-sm-6 p-lg-2">
+                    <p-dropdown filter="true" placeholder="Select a Section" [options]="masterSections"
+                     optionLabel="sectionName"
+                    (onChange)="onSelectSection($event)"
+                    [style]="{'width':'12rem'}">
+                    </p-dropdown>
+                </div>
+                <div class="p-col-12 p-md-2 p-sm-6 p-lg-2">
+                    <p-dropdown filter="true" placeholder="Select a Subject" [options]="masterSubject"
+                     optionLabel="subjectName"
+                        [style]="{'width':'12rem'}">
+                    </p-dropdown>
+                </div>
+                <div class="p-col-12 p-md-2 p-sm-6 p-lg-2">
+                    <p-dropdown filter="true" placeholder="Select Status" [options]="syllabusStatus"
+                     optionLabel="statusName"
+                        [style]="{'width':'12rem'}">
+                    </p-dropdown>
+                </div>
+                <div class="p-col-12 p-md-2 p-sm-6 p-lg-2">
+                    <p-dropdown filter="true" placeholder="Select Unit"
+                        [style]="{'width':'12rem'}"optionLabel="name">
+                    </p-dropdown>
+                </div>
+                <div class="p-col-12 p-md-3 p-sm-6 p-lg-2">
+                    <p-dropdown filter="true" placeholder="Select Chapter"
+                        [style]="{'width':'12rem'}"optionLabel="name">
+                    </p-dropdown>
+                </div>
+                <div class="p-col-12 p-md-1 p-sm-6 p-lg-2">
+                    <input type="date" pInputText>
+                </div>
+                <div class="p-col-12 p-md-2 p-sm-6 p-lg-2">
+                    <p-dropdown filter="true" placeholder="Select a Topic"
+                        [style]="{'width':'auto'}"optionLabel="name">
+                    </p-dropdown>
+                </div>
+                <div class="badges p-mt-2">
+                    <span class="p-tag p-tag-rounded p-mr-1">Not Seen</span>
+                    <span class="p-tag p-tag-rounded p-tag-success p-mr-1">Seen</span>
+                    <span class="p-tag p-tag-rounded p-tag-info p-mr-1">Completed</span>
+                    <span class="p-tag p-tag-rounded p-tag-warning p-mr-1">Submitted</span>
+                    <span class="p-tag p-tag-rounded p-tag-danger">Re-Submitted</span>
+                </div>
+
+            </div>
+         
+            <p-table #dtc [value]="data" dataKey="id" 
+                styleClass="p-datatable-customers p-datatable-gridlines p-datatable-striped p-datatable-sm"
+                [rowHover]="true"
+                [scrollable]="true" scrollHeight="600px" [filterDelay]="0"
+                [globalFilterFields]="['subjectName','publishBy']" [paginator]="true" [rows]="rows"
+                [showCurrentPageReport]="true" [(first)]="first"
+                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                [rowsPerPageOptions]="[10,25,50]">
+                <!-- <ng-template pTemplate="colgroup" let-columns>
+                    <colgroup>
+                        <col style="width:200px">
+                        <col style="width:150px">
+                        <col style="width:100px">
+                        <col style="width:100px">
+                        <col style="width:150px">
+                        <col style="width:150px">
+                        <col style="width:200px">
+                        <col style="width:200px">
+                        <col style="width:150px">
+                    </colgroup>
+                </ng-template> -->
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th pSortableColumn="assigTo" >Assign To
+                            <p-sortIcon field="assigTo"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="subjectName">Subject Name
+                            <p-sortIcon field="subjectName"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="topic">Topic
+                            <p-sortIcon field="topic"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="assignmentDetail">Description Detail
+                            <p-sortIcon field="assignmentDetail"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="attachment">Attachments
+                            <p-sortIcon field="attachment"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="publishBy">Publish By
+                            <p-sortIcon field="publishBy"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="date">Date
+                            <p-sortIcon field="date"></p-sortIcon>
+                        </th>
+
+                        <th pSortableColumn="activity">Activity
+                            <p-sortIcon field="activity"></p-sortIcon>
+                        </th>
+
+                        <th pSortableColumn="action">Action
+                            <p-sortIcon field="action"></p-sortIcon>
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-assignment>
+                    <tr [pSelectableRow]="school">
+                        <td>
+                            <span class="p-column-title">Assign To</span>
+                            {{assignment.className}} - {{assignment.sectionName}}
+                        </td>
+                        <td>
+                            <span class="p-column-title">Subject Name</span>
+                            {{assignment.subjectName}}
+                        </td>
+                        <td>
+                            <span class="p-column-title">Topic</span>
+                            {{assignment.topic}}
+                        </td>
+                        <td>
+                            <span class="p-column-title">Description Detail</span>
+                            {{assignment.description}}
+                        </td>
+                        <td>
+                           
+                            <span class="p-column-title"  *ngFor="let attachment of assignment.attachments">Attachments</span>
+                            <div *ngFor="let attachment of assignment.attachments">
+                                <div class="p-col-auto">
+                                <a href="{{baseURL}}/{{attachment.path}}" target="_blank" download><i class="pi pi-download"></i></a>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <span class="p-column-title">Publish By</span>
+                            {{assignment.publisherName}}
+                        </td>
+                        <td>
+                            <span class="p-column-title">Date</span>
+                            {{assignment.createdDate | date:'medium'}}
+                        </td>
+                        <td>
+                            <div class="badges p-col-12">
+                                <span class="badges p-badge p-mr-2" pTooltip="Not Seen Syllabus." tooltipPosition="top" (click)="assignmentActivity(assignment.assignmentId)">2</span>
+                                <span class="badges p-badge p-badge-success p-mr-2" pTooltip= "Seen Syllabus" tooltipPosition="top" (click)="assignmentActivity()">8</span>
+                                <span class="badges p-badge p-badge-warning p-mr-2 " pTooltip="Submitted Syllabus" tooltipPosition="top" (click)="assignmentActivity()">12</span>
+                                <span class="badges p-badge p-badge-danger  p-mr-2" pTooltip="Re-Submitted Syllabus" tooltipPosition="top" (click)="assignmentActivity()">3</span>
+                                <span class="badges p-badge p-badge-info p-mr-2 " pTooltip="Completed Syllabus" tooltipPosition="top" (click)="assignmentActivity()">4</span>
+                            </div>
+                        </td>
+
+                        <td>
+                            <!-- <a [routerLink]=""><i class="pi pi-user-edit f-16 m-r-15"></i></a>&#160;&#160; -->
+                            <!-- <a href="javascript:"><i class="pi pi-trash f-16"></i></a>&#160;&#160; --> 
+                            <button pButton pRipple type="button" icon="pi pi-pencil f-16" class="p-button-rounded p-button-secondary p-button-outlined p-mr-2 p-mb-2"></button>
+                            <button pButton pRipple type="button" icon="pi pi-trash f-16" class="p-button-rounded p-button-danger p-button-outlined p-mr-2 p-mb-2"></button>
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                        <td colspan="8">No customers found.</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </p-panel>
+    </div>
+</div>

@@ -1,0 +1,345 @@
+<p-toast></p-toast>
+<p-panel header="Add New Employee">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="p-grid">
+            <div class="p-col-12">
+                <div class="p-fluid p-formgrid p-grid">
+                    <div class="p-field p-col-12 p-md-3">
+                        <input type="text" formControlName="employeeCode" placeholder="Employee Code" pInputText>
+                        <small class="messages text-danger" *ngIf="form.controls.employeeCode.errors?.required 
+                            && (form.controls.employeeCode.dirty || form.controls.employeeCode.touched) || 
+                            (submitted && form.controls.employeeCode.errors?.required)">Employee Id
+                            Required</small>
+                    </div>
+                    <div class="p-field p-col-12 p-md-3">
+                        <input id="bioMatricId" type="text" name="bioMatricId" formControlName="bioMatricId"
+                            placeholder="Bio Matric Id" pInputText>
+                        <small class="messages text-danger" *ngIf="form.controls.bioMatricId.errors?.required 
+                                          && (form.controls.bioMatricId.dirty || form.controls.bioMatricId.touched) || 
+                                          (submitted && form.controls.bioMatricId.errors?.required)">BioMatric Id
+                            Required</small>
+                    </div>
+                    <div class="p-field p-col-12 p-md-3">
+                        <input type="title" name="title" placeholder="Title" formControlName="title" pInputText>
+                        <small class="messages text-danger" *ngIf="form.controls.title.errors?.required 
+                        && (form.controls.title.dirty || form.controls.title.touched) || 
+                        (submitted && form.controls.title.errors?.required)">Title Required</small>
+                    </div>
+                    <div class="p-field p-col-12 p-md-3">
+
+                        <input id="firstName" type="firstName" name="firstName" formControlName="firstName"
+                            placeholder="First Name" pInputText>
+                        <small class="messages text-danger" *ngIf="form.controls.firstName.errors?.required 
+                                && (form.controls.firstName.dirty || form.controls.firstName.touched) || 
+                                (submitted && form.controls.firstName.errors?.required)">First Name Required</small>
+                    </div>
+                    <div class="p-field p-col-12 p-md-3">
+
+                        <input id="middleName" type="text" name="middleName" formControlName="middleName"
+                            placeholder="Middle Name" pInputText>
+                        <small class="messages text-danger" *ngIf="form.controls.middleName.errors?.required 
+                              && (form.controls.middleName.dirty || form.controls.middleName.touched) || 
+                              (submitted && form.controls.middleName.errors?.required)">Middle Name Required</small>
+                    </div>
+                    <div class="p-field p-col-12 p-md-3">
+                        <input id="lastName" type="text" name="lastName" formControlName="lastName"
+                            placeholder="Last Name" pInputText>
+                        <small class="messages text-danger" *ngIf="form.controls.lastName.errors?.required 
+                              && (form.controls.lastName.dirty || form.controls.lastName.touched) || 
+                              (submitted && form.controls.lastName.errors?.required)">Last Name Required</small>
+                    </div>
+                    <div class="p-field p-col-12 p-md-4">
+                        <input id="email" type="email" name="email" formControlName="email" placeholder="Email"
+                            pInputText>
+                        <small class="messages text-danger" *ngIf="form.controls.email.errors?.required 
+                              && (form.controls.email.dirty || form.controls.email.touched) || 
+                              (submitted && form.controls.email.errors?.required)">Email Required</small>
+                    </div>
+                    <div class="p-field p-col-12 p-md-2">
+                        <input id="dob" type="date" name="dob" pTooltip=" Enter Date Of Birth " tooltipPosition="top"
+                            formControlName="dob" placeholder="Date Of Birth" pInputText>
+                        <small class="messages text-danger" *ngIf="form.controls.dob.errors?.required 
+                                      && (form.controls.dob.dirty || form.controls.dob.touched) || 
+                                      (submitted && form.controls.dob.errors?.required)">Date Of Birth Required</small>
+                    </div>
+                    <div class="p-field p-col-12 p-md-2">
+                        <p-dropdown inputId="gender" [options]="genders" formControlName="gender" placeholder="Gender"
+                            optionLabel="name">
+                        </p-dropdown>
+                        <small class="messages text-danger" *ngIf="form.controls.gender.errors?.required 
+                                  && (form.controls.gender.dirty || form.controls.gender.touched) || 
+                                  (submitted && form.controls.gender.errors?.required)">Gender Required</small>
+                    </div>
+                    <div class="p-field p-col-12 p-md-2">
+                        <p-dropdown inputId="religion" [options]="religions" formControlName="religion"
+                            placeholder="Religion" optionLabel="name">
+                        </p-dropdown>
+                        <small class="messages text-danger" *ngIf="form.controls.religion.errors?.required 
+                        && (form.controls.religion.dirty || form.controls.religion.touched) || 
+                        (submitted && form.controls.religion.errors?.required)">Religion Required</small>
+                    </div>
+                    <div class="p-field p-col-12 p-md-2">
+                        <p-dropdown inputId="castCategory" [options]="castCategories" formControlName="castCategory"
+                            placeholder="Caste Category" optionLabel="name">
+                        </p-dropdown>
+                        <small class="messages text-danger" *ngIf="form.controls.castCategory.errors?.required 
+                                      && (form.controls.castCategory.dirty || form.controls.castCategory.touched) || 
+                                      (submitted && form.controls.castCategory.errors?.required)">Caste Category
+                            Required</small>
+                    </div>
+                    <div class="p-field p-col-12 p-md-2">
+
+                        <p-dropdown inputId="maritalStatus" [options]="maritalStatuss" formControlName="maritalStatus"
+                            placeholder="Marital Status" optionLabel="name">
+                        </p-dropdown>
+                        <small class="messages text-danger" *ngIf="form.controls.maritalStatus.errors?.required 
+                            && (form.controls.maritalStatus.dirty || form.controls.maritalStatus.touched) || 
+                            (submitted && form.controls.maritalStatus.errors?.required)">Marital Status
+                            Required</small>
+                    </div>
+                    <div class="p-field p-col-12 p-md-2">
+                        <input id="anniversaryDate" type="date" name="anniversaryDate" formControlName="anniversaryDate"
+                            pTooltip="Enter Anniversary Date " tooltipPosition="top" placeholder="Anniversary Date"
+                            pInputText>
+                        <small class="messages text-danger" *ngIf="form.controls.anniversaryDate.errors?.required 
+                                          && (form.controls.anniversaryDate.dirty || form.controls.anniversaryDate.touched) || 
+                                          (submitted && form.controls.anniversaryDate.errors?.required)">Anniversary
+                            Date
+                            Required</small>
+                    </div>
+                    <div class="p-field p-col-12 p-md-2">
+                        <p-dropdown inputId="uidType" [options]="uidTypes" formControlName="uidType"
+                            placeholder="UID Type" optionLabel="name">
+                        </p-dropdown>
+                        <small class="messages text-danger" *ngIf="form.controls.uidType.errors?.required 
+                                      && (form.controls.uidType.dirty || form.controls.uidType.touched) || 
+                                      (submitted && form.controls.uidType.errors?.required)">UID Type Required</small>
+                    </div>
+                    <div class="p-field p-col-12 p-md-2">
+
+                        <input id="uidNumber" type="text" name="uidNumber" formControlName="uidNumber"
+                            placeholder="UID Number" pInputText>
+                        <small class="messages text-danger" *ngIf="form.controls.uidNumber.errors?.required 
+                            && (form.controls.uidNumber.dirty || form.controls.uidNumber.touched) || 
+                            (submitted && form.controls.uidNumber.errors?.required)">UID Number
+                            Required</small>
+                    </div>
+
+                    <div class="p-field p-col-12 p-md-2">
+
+                        <p-dropdown inputId="bloodGroup" [options]="bloodGroups" formControlName="bloodGroup"
+                            placeholder="Blood Group" optionLabel="name">
+                        </p-dropdown>
+                        <small class="messages text-danger" *ngIf="form.controls.bloodGroup.errors?.required 
+                                      && (form.controls.bloodGroup.dirty || form.controls.bloodGroup.touched) || 
+                                      (submitted && form.controls.bloodGroup.errors?.required)">Blood Group
+                            Required</small>
+                    </div>
+                    <div class="p-field p-col-12 p-md-2">
+
+                        <p-dropdown inputId="handicapStatus" [options]="handicapStatuss"
+                            formControlName="handicapStatus" placeholder="Handicap Status" optionLabel="name">
+                        </p-dropdown>
+                        <small class="messages text-danger" *ngIf="form.controls.handicapStatus.errors?.required 
+                           && (form.controls.handicapStatus.dirty || form.controls.handicapStatus.touched) || 
+                           (submitted && form.controls.handicapStatus.errors?.required)">Handicap Status
+                            Required</small>
+                    </div>
+                    <div class="p-field p-col-12 p-md-4">
+
+                        <input id="medicalCondition" type="text" name="medicalCondition"
+                            formControlName="medicalCondition" placeholder="Medical Condition (If any)" pInputText>
+                    </div>
+                    <div class="p-field p-col-12 p-md-2">
+
+                        <p-inputMask type="text" name="phoneNumber" formControlName="phoneNumber"
+                            placeholder="Phone Number" mask="9999999999"></p-inputMask>
+                        <small class="messages text-danger" *ngIf="form.controls.phoneNumber.errors?.required 
+                                      && (form.controls.phoneNumber.dirty || form.controls.phoneNumber.touched) || 
+                                      (submitted && form.controls.phoneNumber.errors?.required)">Phone Number
+                            Required</small>
+                    </div>
+                    <div class="p-field p-col-6">
+                        <input type="text" name="address1" placeholder="Address 1" formControlName="address1"
+                            pInputText>
+                        <small class="messages text-danger" *ngIf="form.controls.address1.errors?.required 
+                        && (form.controls.address1.dirty || form.controls.address1.touched) || 
+                        (submitted && form.controls.address1.errors?.required)">Address 1
+                            Required</small>
+                    </div>
+                    <div class="p-field p-col-6">
+                        <input type="text" name="address2" placeholder="Address 2" formControlName="address2"
+                            pInputText>
+                    </div>
+                    <!-- <div class="p-field p-col-12">
+
+                        <textarea id="address" type="text" rows="2" placeholder="Address" pInputTextarea></textarea>
+                    </div> -->
+                    <!-- <div class="p-field p-col-12 p-md-3">
+                        <input type="text" pInputText placeholder="Distt.">
+                    </div> -->
+                    <div class="p-field p-col-12 p-md-3">
+                        <input type="text" name="city" placeholder="City" formControlName="city" pInputText>
+                        <small class="messages text-danger" *ngIf="form.controls.city.errors?.required 
+                        && (form.controls.city.dirty || form.controls.city.touched) || 
+                        (submitted && form.controls.city.errors?.required)">City Required</small>
+                    </div>
+                    <div class="p-field p-col-12 p-md-3">
+                        <p-dropdown [options]="states" formControlName="stateId" placeholder="Select State"
+                            optionLabel="name"></p-dropdown>
+                        <small class="messages text-danger" *ngIf="form.controls.stateId.errors?.required 
+                            && (form.controls.stateId.dirty || form.controls.stateId.touched) || 
+                            (submitted && form.controls.stateId.errors?.required)">State Required</small>
+                    </div>
+                    <div class="p-field p-col-12 p-md-3">
+                        <p-dropdown [options]="country" formControlName="countryId" placeholder="Select country"
+                            optionLabel="name"></p-dropdown>
+                        <small class="messages text-danger" *ngIf="form.controls.countryId.errors?.required 
+                            && (form.controls.countryId.dirty || form.controls.countryId.touched) || 
+                            (submitted && form.controls.countryId.errors?.required)">Country Required</small>
+                    </div>
+                    <div class="p-field p-col-12 p-md-3">
+                        <p-inputMask type="text" formControlName="pinCode" mask="999999" placeholder="PIN Code">
+                        </p-inputMask>
+                        <small class="messages text-danger" *ngIf="form.controls.pinCode.errors?.required 
+                        && (form.controls.pinCode.dirty || form.controls.pinCode.touched) || 
+                        (submitted && form.controls.pinCode.errors?.required)">PIN Code Required</small>
+                    </div>
+                </div>
+                <!-- <h6>Bank Account Details</h6> -->
+                <div class="p-fluid p-formgrid p-grid">
+                    <div class="p-field p-col-12 p-md-3">
+                        <input id="name" type="text" name="name" formControlName="name" placeholder="Bank Name"
+                            pInputText>
+                        <small class="messages text-danger" *ngIf="form.controls.name.errors?.required 
+                            && (form.controls.name.dirty || form.controls.name.touched) || 
+                            (submitted && form.controls.name.errors?.required)">Bank Name
+                            Required</small>
+                    </div>
+                    <div class="p-field p-col-12 p-md-3">
+
+                        <p-inputMask id="account" type="text" name="account" formControlName="account"
+                            placeholder="Account Number" mask="9999999999999999"></p-inputMask>
+                        <small class="messages text-danger" *ngIf="form.controls.account.errors?.required 
+                                          && (form.controls.account.dirty || form.controls.account.touched) || 
+                                          (submitted && form.controls.account.errors?.required)">Account Number
+                            Required</small>
+                    </div>
+                    <div class="p-field p-col-12 p-md-3">
+                        <p-inputMask type="text" name="ifsc" formControlName="ifsc" placeholder="IFSC Code"
+                            mask="***********"></p-inputMask>
+                        <small class="messages text-danger" *ngIf="form.controls.ifsc.errors?.required 
+                                          && (form.controls.ifsc.dirty || form.controls.ifsc.touched) || 
+                                          (submitted && form.controls.ifsc.errors?.required)">IFSC Code
+                            Required</small>
+                    </div>
+                    <div class="p-field p-col-12 p-md-3">
+                        <p-inputMask type="text" name="pan" formControlName="pan" placeholder="Pan Card Number"
+                            mask="**********"></p-inputMask>
+                        <small class="messages text-danger" *ngIf="form.controls.pan.errors?.required 
+                                          && (form.controls.pan.dirty || form.controls.pan.touched) || 
+                                          (submitted && form.controls.pan.errors?.required)">PAN Card Number
+                            Required</small>
+                    </div>
+                </div>
+                <!-- <h6>Employer Purpose Details</h6> -->
+                <div class="p-fluid p-formgrid p-grid">
+                    <div class="p-field p-col-12 p-md-4">
+                        <input id="board" type="text" name="board" formControlName="board" placeholder="Board"
+                            pInputText>
+                        <small class="messages text-danger" *ngIf="form.controls.board.errors?.required 
+                                          && (form.controls.board.dirty || form.controls.board.touched) || 
+                                          (submitted && form.controls.board.errors?.required)">Board
+                            Required</small>
+                    </div>
+                    <div class="p-field p-col-12 p-md-4">
+                        <input type="number" name="experience" pTooltip="Experience " tooltipPosition="top"
+                            formControlName="experience" pInputText>
+                        <small class="messages text-danger" *ngIf="form.controls.experience.errors?.required 
+                            && (form.controls.experience.dirty || form.controls.experience.touched) || 
+                            (submitted && form.controls.experience.errors?.required)">Experience
+                            Required</small>
+                    </div>
+                    <div class="p-field p-col-12 p-md-4">
+                        <p-dropdown [options]="masterEmployee" formControlName="masterEmployeeId"
+                            placeholder="JOB Specialization" optionLabel="name">
+                        </p-dropdown>
+                        <small class="messages text-danger" *ngIf="form.controls.masterEmployeeId.errors?.required 
+                            && (form.controls.masterEmployeeId.dirty || form.controls.masterEmployeeId.touched) || 
+                            (submitted && form.controls.masterEmployeeId.errors?.required)">JOB Specialization
+                            Required</small>
+                    </div>
+                </div>
+                <div class="p-fluid p-formgrid p-grid">
+                    <div class="p-field p-col-12 p-md-4">
+
+                        <input type="date" name="appointmentDate" pTooltip=" Enter Appointment Date "
+                            tooltipPosition="top" formControlName="appointmentDate" placeholder="Appointment Date"
+                            pInputText>
+                        <small class="messages text-danger" *ngIf="form.controls.appointmentDate.errors?.required 
+                                          && (form.controls.appointmentDate.dirty || form.controls.appointmentDate.touched) || 
+                                          (submitted && form.controls.appointmentDate.errors?.required)">Appointment
+                            Date
+                            Required</small>
+                    </div>
+                    <div class="p-field p-col-12 p-md-4">
+                        <input id="joiningDate" type="date" name="joiningDate" pTooltip="Joining Date"
+                            tooltipPosition="top" formControlName="joiningDate" pInputText>
+                        <small class="messages text-danger" *ngIf="form.controls.joiningDate.errors?.required 
+                                          && (form.controls.joiningDate.dirty || form.controls.joiningDate.touched) || 
+                                          (submitted && form.controls.joiningDate.errors?.required)">Joining Date
+                            Required</small>
+                    </div>
+                    <div class="p-field p-col-12 p-md-4">
+                        <p-dropdown inputId="masterDepartmentId" [options]="masterDepartment"
+                            formControlName="masterDepartmentId" placeholder="Job Type" optionLabel="name">
+                        </p-dropdown>
+                        <small class="messages text-danger" *ngIf="form.controls.masterDepartmentId.errors?.required 
+                            && (form.controls.masterDepartmentId.dirty || form.controls.masterDepartmentId.touched) || 
+                            (submitted && form.controls.masterDepartmentId.errors?.required)">Job Type
+                            Required</small>
+                    </div>
+                </div>
+                <div class="p-fluid p-formgrid p-grid">
+                    <div class="p-field p-col-12 p-md-3">
+                        <input id="jobTitle" type="text" name="jobTitle" formControlName="jobTitle"
+                            placeholder="Job Title" pInputText>
+                        <small class="messages text-danger" *ngIf="form.controls.jobTitle.errors?.required 
+                             && (form.controls.jobTitle.dirty || form.controls.jobTitle.touched) || 
+                             (submitted && form.controls.jobTitle.errors?.required)">Job Title
+                            Required</small>
+                    </div>
+                    <div class="p-field p-col-12 p-md-3">
+                        <input id="qualification" type="text" name="qualification" formControlName="qualification"
+                            placeholder="Degree" pInputText>
+                        <small class="messages text-danger" *ngIf="form.controls.qualification.errors?.required 
+                         && (form.controls.qualification.dirty || form.controls.qualification.touched) 
+                         ||(submitted && form.controls.qualification.errors?.required)">Degree Required</small>
+                    </div>
+                    <div class="p-field p-col-12 p-md-3">
+                        <input id="employeeReferral" type="text" name="employeeReferral"
+                            formControlName="employeeReferral" placeholder="Employee Referral" pInputText>
+                        <small class="messages text-danger" *ngIf="form.controls.employeeReferral.errors?.required 
+                            && (form.controls.employeeReferral.dirty || form.controls.employeeReferral.touched) || 
+                            (submitted && form.controls.employeeReferral.errors?.required)">Employee Referral
+                            Required</small>
+                    </div>
+                    <div class="p-field p-col-12 p-md-3">
+                        <p-dropdown [options]="status" formControlName="activeStatus" placeholder="Select Status"
+                            optionLabel="statusName">
+                        </p-dropdown>
+                        <small class="messages text-danger" *ngIf="form.controls.activeStatus.errors?.required 
+                           && (form.controls.activeStatus.dirty || form.controls.activeStatus.touched) || 
+                           (submitted && form.controls.activeStatus.errors?.required)">Status
+                            Required</small>
+                    </div>
+                </div>
+                <div>
+                    <p-button label="Save" icon="pi pi-check" type="submit" class="p-button p-p-0 p-mr-2"></p-button>
+                    <!-- <button pButton pRipple label="Save" type="submit" class="p-button p-mr-2"></button> -->
+                    <button pButton pRipple label="Go To List" (click)="employeeList()" class="p-button"></button>
+                </div>
+            </div>
+        </div>
+    </form>
+</p-panel>

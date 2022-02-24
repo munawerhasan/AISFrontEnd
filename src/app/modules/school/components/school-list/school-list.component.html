@@ -1,0 +1,102 @@
+<div class="p-grid">
+    <p-panel header="School List"> 
+        <div class="p-col-12 p-mb-0">
+            <p-toolbar class="p-mt-0">
+                <ng-template pTemplate="right">
+                    <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success p-mr-2 p-mb-1"
+                        (click)="openNew()"></button>
+                    <button pButton pRipple label="Import" icon="pi pi-download" class="p-button-help p-mb-1"
+                        (click)="dt.exportCSV()"></button>
+                </ng-template>
+                <span class="p-input-icon-left">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" (input)="dtc.filterGlobal($event.target.value, 'contains')"
+                        placeholder="Global Search" />
+                </span>
+            </p-toolbar>
+            <p-table #dtc [value]="schoolList" dataKey="id"
+                styleClass="p-datatable-customers p-datatable-gridlines p-datatable-striped p-datatable-sm"
+                [scrollable]="true" scrollHeight="600px" [filterDelay]="0"
+                [globalFilterFields]="['schoolCode','schoolName']" [paginator]="true" [rows]="rows"
+                [showCurrentPageReport]="true" [(first)]="first"
+                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                [rowsPerPageOptions]="[10,25,50]">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th pSortableColumn="schoolName" style="width:250px">School Name
+                            <p-sortIcon field="schoolName"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="schoolCode">Code
+                            <p-sortIcon field="schoolCode"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="registrationNumber">Registration
+                            <p-sortIcon field="registrationNumber"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="ownerName">Owner Name
+                            <p-sortIcon field="ownerName"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="ownerContactNo">Contact No
+                            <p-sortIcon field="ownerContactNo"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="activeStatus">Status
+                            <p-sortIcon field="activeStatus"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="user">User
+                            <p-sortIcon field="user"></p-sortIcon>
+                        </th>
+
+                        <th pSortableColumn="action">Action
+                            <p-sortIcon field="action"></p-sortIcon>
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-school>
+                    <tr [pSelectableRow]="school">
+                        <td style="width:250px">
+                            <span class="p-column-title">School Name</span>
+                            {{school.schoolName}}
+                        </td>
+                        <td>
+                            <span class="p-column-title">Code</span>
+                            {{school.schoolCode}}
+                        </td>
+                        <td>
+                            <span class="p-column-title">Registration</span>
+                            {{school.registrationNumber}}
+                        </td>
+                        <td>
+                            <span class="p-column-title">Owner Name</span>
+                            {{school.ownerName}}
+                        </td>
+                        <td>
+                            <span class="p-column-title">Contact No</span>
+                            {{school.ownerContactNo}}
+                        </td>
+                        <td>
+                            <span class="p-column-title">Status</span>
+                            <span [class]="'customer-badge activeStatus-' + school.activeStatus">{{school.activeStatus
+                                | statusConversion}}</span>
+                        </td>
+                        <td>
+                            <span class="p-column-title">User</span>
+                            150
+                        </td>
+                        <td>
+                            <a [routerLink]="['/school/updateSchool', school.schoolId]"><i
+                                    class="pi pi-user-edit f-16 m-r-15"></i></a>&#160;&#160;
+                            <a href="javascript:"><i class="pi pi-trash f-16"></i></a>&#160;&#160;
+                            <a href="javascript:"><i class="pi pi-lock f-16 m-r-15"></i></a>
+                            <!-- <p-splitButton [model]="items" icon="pi pi-cog" (onClick)="upDate()" styleClass="p-button-info p-mr-0 p-mb-0">
+                            </p-splitButton> -->
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                        <td colspan="8">No customers found.</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </p-panel>
+</div>

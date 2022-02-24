@@ -1,0 +1,238 @@
+<div *ngIf="loader">
+    <div class="splash-screen">
+        <div class="splash-loader"></div>
+    </div>
+</div>
+<div class="p-grid">
+    <div class="p-col-12">
+        <div class="card">
+            <h6>Class and Section Mapping Details</h6>
+            <p-toolbar styleClass="p-mb-2">
+                <ng-template pTemplate="right">
+                    <button pButton pRipple label="Mapping" icon="pi pi-plus" class="p-button-success p-mr-2 p-mb-1"
+                        (click)="openNew()"></button>
+                    <button pButton pRipple label="Class" icon="pi pi-plus" class="p-button-success p-mr-2 p-mb-1"
+                        (click)="addClass()"></button>
+                    <button pButton pRipple label="Section" icon="pi pi-plus" class="p-button-success p-mr-2 p-mb-1"
+                        (click)="addSection()"></button>
+                    <button pButton pRipple label="Import" icon="pi pi-download" class="p-button-help p-mb-1"
+                        (click)="dt.exportCSV()"></button>
+                </ng-template>
+                <span class="p-input-icon-left">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" (input)="dtc.filterGlobal($event.target.value, 'contains')"
+                        placeholder="Global Search" />
+                </span>
+            </p-toolbar>
+            <p-table #dtc [value]="data" dataKey="id"
+                styleClass="p-datatable-customers p-datatable-gridlines p-datatable-striped p-datatable-sm"
+                [scrollable]="true" scrollHeight="600px" [filterDelay]="0" [rowHover]="true"
+                [globalFilterFields]="['batchName','className','sectionName']" [paginator]="true" [rows]="rows"
+                [showCurrentPageReport]="true" [(first)]="first"
+                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                [rowsPerPageOptions]="[10,25,50]">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th pSortableColumn="financial Year">Financial Year
+                            <p-sortIcon field="financialYear"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="batchName">Batch
+                            <p-sortIcon field="batchName"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="className">Class
+                            <p-sortIcon field="className"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="sectionName">Section
+                            <p-sortIcon field="sectionName"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="assessmentMode">Assessment Mode
+                            <p-sortIcon field="assessmentMode"></p-sortIcon>
+                        </th>
+                        <th>Status
+                            <p-sortIcon field="user"></p-sortIcon>
+                        </th>
+
+                        <th pSortableColumn="action">Action
+                            <p-sortIcon field="action"></p-sortIcon>
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-school>
+                    <tr [pSelectableRow]="school">
+                        <td>
+                            <span class="p-column-title">Financial Year</span>
+                            {{school.financialYear}}
+                        </td>
+                        <td>
+                            <span class="p-column-title">Batch</span>
+                            {{school.batchName}}
+                        </td>
+                        <td>
+                            <span class="p-column-title">Class</span>
+                            {{school.className}}
+                        </td>
+                        <td>
+                            <span class="p-column-title">Section</span>
+                            {{school.sectionName}}
+                        </td>
+                        <td>
+                            <span class="p-column-title">Assessment Mode</span>
+                            {{school.assessmentMode}}
+                        </td>
+                        <td>
+                            <span class="p-column-title">Status</span>
+                            <span [class]="'customer-badge activeStatus-' + school.activeStatus">{{school.activeStatus
+                                | statusConversion}}</span>
+                        </td>
+                        <td><a>
+                                <i class="fa fa-pencil-square-o f-16 m-r-15"></i>
+                            </a><a href="javascript:" (click)="openNew()"><i class="pi pi-user-edit"></i></a></td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                        <td colspan="8">No data found.</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+</div>
+
+<!--Start Class Section Mapping Dialog-->
+<p-toast></p-toast>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <p-dialog [(visible)]="classSectionMappingDialog" [style]="{width: '600px', height:'auto'}"
+        header="Map Class With Section" [modal]="true" styleClass="p-fluid">
+        <ng-template pTemplate="content">
+            <div class="p-formgrid p-grid">
+                <div class="p-field p-col">
+                    <input id="financialYear" type="text" name="financialYear" placeholder="Financial Year" formControlName="financialYear" pInputText>
+                    <small class="messages text-danger" *ngIf="form.controls.financialYear.errors?.required 
+                && (form.controls.financialYear.dirty || form.controls.financialYear.touched) || 
+                (submitted && form.controls.financialYear.errors?.required)"> Financial Year Required!</small>
+                </div>
+                <div class="p-field p-col">
+                    <p-multiSelect [options]="batches" [(ngModel)]="selectedMultiBatch" appendTo="body" placeholder="Select Batch"
+                        formControlName="masterBatchId" defaultLabel="Select Batch" optionLabel="name"
+                        class="multiselect-custom">
+                        <ng-template let-value pTemplate="selectedItems">
+                            <div class="country-item country-item-value" *ngFor="let batch of selectedMultiBatch">
+                                <div>{{batch.name}}</div>
+                            </div>
+                            <div *ngIf="!selectedMultiBatch || selectedMultiBatch.length === 0"
+                                class="country-placeholder">
+                                Select Batch
+                            </div>
+                        </ng-template>
+                        <ng-template let-country pTemplate="item">
+                            <div class="country-item">
+                                <!-- <img src="assets/demo/flags/flag_placeholder.png" [class]="'flag flag-' + country.value.code.toLowerCase()" /> -->
+                                <div>{{country.value.name}}</div>
+                            </div>
+                        </ng-template>
+                    </p-multiSelect>
+                    <small class="messages text-danger" *ngIf="form.controls.masterBatchId.errors?.required 
+            && (form.controls.masterBatchId.dirty || form.controls.masterBatchId.touched) || 
+            (submitted && form.controls.masterBatchId.errors?.required)">Batch Required!</small>
+                </div>
+            </div>
+            <div class="p-formgrid p-grid">
+                <div class="p-field p-col">
+                    <p-multiSelect [options]="masterClasses" [(ngModel)]="selectedMultiClass" appendTo="body"
+                        formControlName="masterClassId" defaultLabel="Select Batch" placeholder="Class Name"
+                        optionLabel="name" class="multiselect-custom">
+                        <ng-template let-value pTemplate="selectedItems">
+                            <div class="country-item country-item-value" *ngFor="let batch of selectedMultiClass">
+                                <!-- <img src="assets/demo/flags/flag_placeholder.png" [class]="'flag flag-' + option.code.toLowerCase()" /> -->
+                                <div>{{batch.name}}</div>
+                            </div>
+                            <div *ngIf="!selectedMultiClass || selectedMultiClass.length === 0"
+                                class="country-placeholder">
+                                Select Class
+                            </div>
+                        </ng-template>
+                        <ng-template let-country pTemplate="item">
+                            <div class="country-item">
+                                <!-- <img src="assets/demo/flags/flag_placeholder.png" [class]="'flag flag-' + country.value.code.toLowerCase()" /> -->
+                                <div>{{country.value.name}}</div>
+                            </div>
+                        </ng-template>
+                    </p-multiSelect>
+                    <small class="messages text-danger" *ngIf="form.controls.masterClassId.errors?.required 
+            && (form.controls.masterClassId.dirty || form.controls.masterClassId.touched) || 
+            (submitted && form.controls.masterClassId.errors?.required)">Master Class Required!</small>
+                </div>
+                <div class="p-field p-col">
+                    <p-multiSelect [options]="sectionMaster" [(ngModel)]="selectedMultiSection" appendTo="body"
+                        formControlName="masterSectionId" defaultLabel="Select Batch" placeholder="Section Name"
+                        optionLabel="name" class="multiselect-custom">
+                        <ng-template let-value pTemplate="selectedItems">
+                            <div class="country-item country-item-value" *ngFor="let batch of selectedMultiSection">
+                                <!-- <img src="assets/demo/flags/flag_placeholder.png" [class]="'flag flag-' + option.code.toLowerCase()" /> -->
+                                <div>{{batch.name}}</div>
+                            </div>
+                            <div *ngIf="!selectedMultiSection || selectedMultiSection.length === 0"
+                                class="country-placeholder">
+                                Select Section
+                            </div>
+                        </ng-template>
+                        <ng-template let-country pTemplate="item">
+                            <div class="country-item">
+                                <!-- <img src="assets/demo/flags/flag_placeholder.png" [class]="'flag flag-' + country.value.code.toLowerCase()" /> -->
+                                <div>{{country.value.name}}</div>
+                            </div>
+                        </ng-template>
+                    </p-multiSelect>
+                    <small class="messages text-danger" *ngIf="form.controls.masterSectionId.errors?.required 
+            && (form.controls.masterSectionId.dirty || form.controls.masterSectionId.touched) || 
+            (submitted && form.controls.masterSectionId.errors?.required)">Master Section Required!</small>
+                </div>
+            </div>
+
+            <div class="p-field p-col">
+                <p-dropdown inputId="assessmentMode" [options]="assessmentModeDropdown" placeholder="Assessment Mode"
+                    formControlName="assessmentMode" optionLabel="Name">
+                </p-dropdown>
+                <small class="messages text-danger" *ngIf="form.controls.assessmentMode.errors?.required 
+                    && (form.controls.assessmentMode.dirty || form.controls.assessmentMode.touched) || 
+                    (submitted && form.controls.assessmentMode.errors?.required)">Assessment Mode Reuired!</small>
+            </div>
+            <div class="p-field p-col">
+                <input id="stength" type="text" name="stength" placeholder="Stength" formControlName="stength"
+                    pInputText>
+                <small class="messages text-danger" *ngIf="form.controls.stength.errors?.required 
+            && (form.controls.stength.dirty || form.controls.stength.touched) || 
+            (submitted && form.controls.stength.errors?.required)">Stength Reuired!</small>
+            </div>
+
+            <div class="p-formgrid p-grid">
+                <div class="p-field p-col">
+                    <input id="displayOrder" type="text" name="displayOrder"  placeholder=" Display Order"
+                        formControlName="displayOrder" pInputText>
+                    <small class="messages text-danger" *ngIf="form.controls.displayOrder.errors?.required 
+                        && (form.controls.displayOrder.dirty || form.controls.displayOrder.touched) || 
+                        (submitted && form.controls.displayOrder.errors?.required)">Display Order Reuired!</small>
+                </div>
+                <div class="p-field p-col">
+                    <p-dropdown inputId="statuss" [options]="status" appendTo="body" placeholder="Select Status"
+                        formControlName="activeStatus" optionLabel="statusName">
+                    </p-dropdown>
+                    <small class="messages text-danger" *ngIf="form.controls.activeStatus.errors?.required 
+            && (form.controls.activeStatus.dirty || form.controls.activeStatus.touched) || 
+            (submitted && form.controls.activeStatus.errors?.required)">Status Reuired!</small>
+                </div>
+            </div>
+
+        </ng-template>
+
+        <ng-template pTemplate="footer">
+            <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text"
+                (click)="cancelDialog()"></button>
+            <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" type="submit" ></button>
+
+        </ng-template>
+    </p-dialog>
+</form>
+<!-- <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog> -->
+<!--End Class Section Mapping Dialog-->

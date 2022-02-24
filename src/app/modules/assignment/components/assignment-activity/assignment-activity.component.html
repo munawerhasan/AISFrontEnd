@@ -1,0 +1,378 @@
+<div class="card p-shadow-2">
+    <p-tabView orientation="left" [(activeIndex)]="index">
+        <p-tabPanel header="Not Seen" leftIcon="pi pi-user">
+            <div class="p-grid table-demo">
+                <div class="p-col-12 p-lg-12">
+                    <div *ngFor="let data of notSeenData">
+                        <div class="dashboard-banking">
+                            <div class="p-grid currency-panel">
+                                <div class="p-col-12 p-md-6 p-lg-4 card p-shadow-4 clearfix">
+                                    <div class="dashboard-currency">
+                                        <div class="dashboard-currency-icon">
+                                            <img src="assets/demo/images/avatar/amyelsner.png" alt="avalon-layout"
+                                                width="30" class="icon-dollar" />
+                                        </div>
+
+                                        <div class="dashboard-currency-label">
+                                            <!-- <div class="dashboard-currency-title">Student Name</div> -->
+                                            <div class="dashboard-currency-subtitle">{{data.studentName}}</div>
+                                            <span class="currency-rate-value">{{data.fatherName}}</span>
+                                        </div>
+
+                                        <div class="dashboard-currency-rates">
+                                            <!-- <div class="dashboard-currency-rate">
+                                                <span class="currency-rate-title">Father Name</span>
+                                                <span class="currency-rate-value">{{data.fatherName}}</span>
+                                            </div> -->
+                                            <div class="dashboard-currency-rate">
+                                                <span class="currency-rate-title">Mobile</span>
+                                                <span class="currency-rate-value">{{data.fatherContactNumber}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><br>
+                    </div>
+                </div>
+            </div>
+        </p-tabPanel>
+        <p-tabPanel header="Seen" leftIcon="pi pi-user">
+            <div class="p-grid table-demo">
+                <div class="p-col-12 p-lg-12">
+                    <div *ngFor="let data of seenData">
+                        <div class="dashboard-banking">
+                            <div class="p-grid currency-panel">
+                                <div class="p-col-12 p-md-6 p-lg-4 card p-shadow-4 clearfix">
+                                    <div class="dashboard-currency">
+                                        <div class="dashboard-currency-icon">
+                                            <img src="assets/demo/images/avatar/amyelsner.png" alt="avalon-layout"
+                                                width="30" class="icon-dollar" />
+                                        </div>
+
+                                        <div class="dashboard-currency-label">
+                                            <!-- <div class="dashboard-currency-title">Student Name</div> -->
+                                            <div class="dashboard-currency-subtitle">{{data.studentName}}</div>
+                                            <span class="currency-rate-value">{{data.fatherName}}</span>
+                                        </div>
+
+                                        <div class="dashboard-currency-rates">
+                                            <!-- <div class="dashboard-currency-rate">
+                                                <span class="currency-rate-title">Father Name</span>
+                                                <span class="currency-rate-value">{{data.fatherName}}</span>
+                                            </div> -->
+
+                                            <div class="dashboard-currency-rate">
+                                                <span class="currency-rate-title">Mobile</span>
+                                                <span class="currency-rate-value">{{data.fatherContactNumber}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><br>
+                    </div>
+                </div>
+            </div>
+        </p-tabPanel>
+        <p-tabPanel header="Submitted" leftIcon="pi pi-user">
+            <div class="p-grid">
+                <div class="p-col-12 p-md-4 p-lg-4 p-mt-2" *ngFor="let item of submittedData">
+                    <div class="card p-shadow-4 widget-contacts">
+                        <div class="p-grid">
+                            <div class="p-col-12 p-md-4 p-lg-4">
+                                <ul>
+                                    <li class="clearfix">
+                                        <img src="assets/layout/images/avatar.png" width="65">
+                                        <div class="contact-info">
+                                            <span class="name">{{item.publisherName}}</span>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="p-col-12 p-md-8 p-lg-8">
+                                <p-scrollPanel [style]="{width: '100%', height: '120px'}" styleClass="custombar2">
+                                    <table width='400px' cellspacing="6">
+                                        <tr>
+                                            <td>
+                                                Publish Date :
+                                            </td>
+                                            <td>
+                                                {{item.createdDate | date:'medium'}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Submit Date :
+                                            </td>
+                                            <td>
+                                                {{item.toBeSubmittedDate | date:'medium'}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Assign..Status :
+                                            </td>
+                                            <td>
+                                                <p>Submitted</p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Attachments :
+                                            </td>
+                                            <td>
+                                                <div *ngFor="let attachment of item.attachments">
+                                                    <div class="p-col-auto" class="p-ml-1">
+                                                        <a href="{{baseURL}}/{{attachment.path}}" target="_blank"
+                                                            download><i class="pi pi-download"></i></a>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                User Attachments :
+                                            </td>
+                                            <td>
+                                                <div *ngFor="let attachment of item.userAssignmentAttachments">
+                                                    <div class="p-col-auto" class="p-ml-1">
+                                                        <a href="{{baseURL}}/{{attachment.path}}" target="_blank"
+                                                            download><i class="pi pi-download"></i></a>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </p-scrollPanel>
+                            </div>
+                            <div class="p-col-12 p-md-12 p-shadow-1 ">
+                                <p-scrollPanel [style]="{width: '100%', height: '150px'}" styleClass="custombar2">
+                                    <table width='300px' cellspacing="5">
+                                        <tr>
+                                            <td>
+                                                Assignment Title :
+                                            </td>
+                                            <td>
+                                                {{item.name}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Subject Name :
+                                            </td>
+                                            <td>
+                                                {{item.subjectName}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Unit :
+                                            </td>
+                                            <td>
+                                                2
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Chapter :
+                                            </td>
+                                            <td>
+                                                {{item.name}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Topic :
+                                            </td>
+                                            <td>
+                                                {{item.name}}
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </p-scrollPanel>
+                            </div>
+
+                            <div class="p-col-12 p-md-12 p-shadow-4 p-mt-2">
+                                <label><b>Description</b></label>
+                                <p-scrollPanel [style]="{width: '100%', height: '100px'}" styleClass="custombar2">
+                                    {{item.description}}
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                                    tempor
+                                    incididunt ut labore et dolore magna aliqua.
+                                    Vitae et leo duis ut diam.
+                                    Ultricies mi quis hendrerit dolor magna eget est lorem. Amet consectetur
+                                    adipiscing
+                                    elit ut.
+                                    Nam libero justo laoreet sit amet. Pharetra massa massa ultricies mi quis
+                                    hendrerit
+                                    dolor magna.
+                                    Est ultricies integer quis auctor elit sed vulputate. Consequat ac felis
+                                    donec et.
+                                    Tellus orci ac auctor augue mauris.
+                                    Semper feugiat nibh sed pulvinar proin gravida hendrerit lectus a. Tincidunt
+                                    arcu
+                                    non sodales neque sodales.
+                                    Metus aliquam eleifend mi in nulla posuere sollicitudin aliquam ultrices.
+                                    Sodales ut
+                                    etiam sit amet nisl purus.
+                                    Cursus sit amet dictum sit amet. Tristique senectus et netus et malesuada
+                                    fames ac
+                                    turpis egestas.
+                                    Et tortor consequat id porta nibh venenatis cras sed. Diam maecenas
+                                    ultricies mi
+                                    eget mauris.
+                                    Eget egestas purus viverra accumsan in nisl nisi. Suscipit adipiscing
+                                    bibendum est
+                                    ultricies integer.
+                                    Mattis aliquam faucibus purus in massa tempor nec.
+                                </p-scrollPanel>
+                            </div>
+                            <div class="p-mt-4 p-shadow-1">
+                                <p *ngIf="(item.assignmentStatus == 3 || item.assignmentStatus == 4 || item.assignmentStatus == 5)">
+                                    <button pButton type="button" class="p-button-primary"
+                                        icon="pi pi-exclamation-circle" iconPos="left" label="Pending Assignment"
+                                        (click)="openAssignmentModal(item.userId)">
+                                    </button>
+                                </p>
+                                <p *ngIf="(item.assignmentStatus == 7)">
+                                    <button pButton type="button" icon="pi pi-times-circle" iconPos="left"
+                                        class="p-button-danger" label="Assignment
+                                    Rejected! Try Again"
+                                    (click)="openAssignmentModal(item.userId)"></button>
+                                </p>
+                                <p *ngIf="(item.assignmentStatus == 10)">
+                                    <button pButton type="button" icon="pi pi-check-square" iconPos="left"
+                                        label="Successfully Assessed" class="p-button-success"></button>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </p-tabPanel>
+        <p-tabPanel header="Re-Submitted" leftIcon="pi pi-user">
+            <div class="p-grid table-demo">
+                <div class="p-col-12 p-lg-12">
+                    <div *ngFor="let data of reSubmittedData">
+                        <div class="dashboard-banking">
+                            <div class="p-grid currency-panel">
+                                <div class="p-col-12 p-md-6 p-lg-4 card p-shadow-4 clearfix">
+                                    <div class="dashboard-currency">
+                                        <div class="dashboard-currency-icon">
+                                            <img src="assets/demo/images/avatar/amyelsner.png" alt="avalon-layout"
+                                                width="30" class="icon-dollar" />
+                                        </div>
+
+                                        <div class="dashboard-currency-label">
+                                            <!-- <div class="dashboard-currency-title">Student Name</div> -->
+                                            <div class="dashboard-currency-subtitle">{{data.studentName}}</div>
+                                            <span class="currency-rate-value">{{data.fatherName}}</span>
+                                        </div>
+
+                                        <div class="dashboard-currency-rates">
+                                            <!-- <div class="dashboard-currency-rate">
+                                                <span class="currency-rate-title">Father Name</span>
+                                                <span class="currency-rate-value">{{data.fatherName}}</span>
+                                            </div> -->
+
+                                            <div class="dashboard-currency-rate">
+                                                <span class="currency-rate-title">Mobile</span>
+                                                <span class="currency-rate-value">{{data.fatherContactNumber}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><br>
+                    </div>
+                </div>
+            </div>
+        </p-tabPanel>
+        <p-tabPanel header="Completed"  leftIcon="pi pi-user" >
+            <div class="p-grid table-demo">
+                <div class="p-col-12 p-lg-12">
+                    <div *ngFor="let data of completedData">
+                        <div class="dashboard-banking">
+                            <div class="p-grid currency-panel">
+                                <div class="p-col-12 p-md-6 p-lg-4 card p-shadow-4 clearfix">
+                                    <div class="dashboard-currency">
+                                        <div class="dashboard-currency-icon">
+                                            <img src="assets/demo/images/avatar/amyelsner.png" alt="avalon-layout"
+                                                width="30" class="icon-dollar" />
+                                        </div>
+
+                                        <div class="dashboard-currency-label">
+                                            <!-- <div class="dashboard-currency-title">Student Name</div> -->
+                                            <div class="dashboard-currency-subtitle">{{data.studentName}}</div>
+                                            <span class="currency-rate-value">{{data.fatherName}}</span>
+                                        </div>
+
+                                        <div class="dashboard-currency-rates">
+                                            <!-- <div class="dashboard-currency-rate">
+                                                <span class="currency-rate-title">Father Name</span>
+                                                <span class="currency-rate-value">{{data.fatherName}}</span>
+                                            </div> -->
+
+                                            <div class="dashboard-currency-rate">
+                                                <span class="currency-rate-title">Mobile</span>
+                                                <span class="currency-rate-value">{{data.fatherContactNumber}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><br>
+                    </div>
+                </div>
+            </div>
+        </p-tabPanel>
+    </p-tabView>
+</div>
+<p-toast></p-toast>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+	<p-dialog [(visible)]="assignmentDialog" [style]="{width: '600px', height:'auto'}" header="Submit Assignment"
+		[modal]="true" styleClass="p-fluid">
+		<ng-template pTemplate="content">
+            <div class="p-field p-col-sm-12 p-col-md-12">
+				<p-dropdown [options]="states" placeholder="Select Status" formControlName="userAssignmentStatus"
+					optionLabel="statesName">
+				</p-dropdown>
+                <small class="messages text-danger" *ngIf="form.controls.userAssignmentStatus.errors?.required 
+                && (form.controls.userAssignmentStatus.dirty || form.controls.userAssignmentStatus.touched) || 
+                (submitted && form.controls.userAssignmentStatus.errors?.required)">Status Reuired!</small>
+			</div>
+            <div class="p-field">
+				<input type="number" formControlName="rating" placeholder="Rating" pInputText>
+				<small class="messages text-danger" *ngIf="form.controls.rating.errors?.required 
+        && (form.controls.rating.dirty || form.controls.rating.touched) || 
+        (submitted && form.controls.rating.errors?.required)">Rating Required!</small>
+			</div>
+            <div class="p-field">
+				<input type="number" formControlName="mark" placeholder="Mark" pInputText>
+				<small class="messages text-danger" *ngIf="form.controls.mark.errors?.required 
+        && (form.controls.mark.dirty || form.controls.mark.touched) || 
+        (submitted && form.controls.mark.errors?.required)">Mark Required!</small>
+			</div>
+            <div class="p-field">
+				<input type="text" formControlName="remark" placeholder="Remark" pInputText>
+                <small class="messages text-danger" *ngIf="form.controls.remark.errors?.required 
+                && (form.controls.remark.dirty || form.controls.remark.touched) || 
+                (submitted && form.controls.remark.errors?.required)">Remark Required!</small>
+			</div>
+            <div class="p-field">
+				<input type="text" formControlName="feedback" placeholder="Feedback" pInputText>
+                <small class="messages text-danger" *ngIf="form.controls.feedback.errors?.required 
+                && (form.controls.feedback.dirty || form.controls.feedback.touched) || 
+                (submitted && form.controls.feedback.errors?.required)">Feedback Required!</small>
+			</div>
+			
+		</ng-template>
+		<ng-template pTemplate="footer">
+			<button pButton pRipple label="Cancel" icon="pi pi-times" (click)="cancelDialog()"
+				class="p-button-text"></button>
+			<button pButton pRipple label="Save" type="submit" icon="pi pi-check" class="p-button-text"></button>
+		</ng-template>
+	</p-dialog>
+</form>

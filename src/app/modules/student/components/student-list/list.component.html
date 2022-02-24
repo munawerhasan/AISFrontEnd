@@ -1,0 +1,79 @@
+<div *ngIf="loader">
+    <div class="splash-screen">
+        <div class="splash-loader"></div>
+    </div>
+</div>
+<div class="p-grid list-demo">
+	<div class="p-col-12">
+		<p-panel header="All Student Details">
+			<p-dataView #dv [value]="data" [paginator]="true" [rows]="12" [showCurrentPageReport]="true"
+				[(first)]="first" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+				[rowsPerPageOptions]="[10,25,50]" filterBy="firstName" layout="grid">
+				<ng-template pTemplate="header">
+					<div class="p-d-flex p-flex-column p-flex-md-row p-jc-md-between">
+						<p-dropdown [options]="masterClasses" optionLabel="name" (onChange)="onSelectClass($event)"
+							filter="true" placeholder="Select a Class" optionLabel="name">
+						</p-dropdown>
+						<p-dropdown filter="true" placeholder="Select a Section" [options]="masterSections"
+							optionLabel="name" (onChange)="onSelectSection($event)">
+						</p-dropdown>
+						<p-button label="Total" icon="pi pi-users" styleClass="p-button-warning"
+							badge="{{ data ? data.length : '0' }}" badgeClass="p-badge-danger"></p-button>
+						<span class="p-input-icon-left p-mb-2 p-mb-md-0">
+							<i class="pi pi-search"></i>
+							<input type="search" pInputText placeholder="Search by Name"
+								(input)="dv.filter($event.target.value)">
+						</span>
+						<p-dataViewLayoutOptions></p-dataViewLayoutOptions>
+					</div>
+				</ng-template>
+				<ng-template let-listItem pTemplate="listItem">
+					<div class="p-col-6">
+						<div class="product-list-item">
+							<img [src]="'assets/demo/images/studentImages/01-AADARSH KUMAR.jpg'" />
+							<div class="product-list-detail">
+								<div class="product-name">{{listItem.firstName}} {{listItem.middleName}}
+									{{listItem.lastName}}</div>
+								<div class="product-description">
+									{{listItem.parentDetail.fatherFullName}}</div>
+								<span class="product-category">{{listItem.user.userName}}</span>
+							</div>
+							<div class="product-list-action">
+								<span class="product-price">{{listItem.rollNumber}}</span>
+								<p-button label="View Detail"></p-button>
+							</div>
+						</div>
+					</div>
+				</ng-template>
+				<ng-template let-listItem pTemplate="gridItem">
+					<div class="p-col-12 p-md-2">
+						<div class="product-grid-item p-shadow-8 card">
+							<div class="product-grid-item-top">
+								<div>
+									<span class="product-category">{{listItem.user.userName}}</span>
+								</div>
+								<span>{{listItem.rollNumber}}</span>
+							</div>
+							<div class="product-grid-item-content">
+								<img class="p-shadow-8"
+									[src]="'assets/demo/images/studentImages/01-AADARSH KUMAR.jpg'" />
+								<div class="product-name">{{listItem.firstName}} {{listItem.middleName}}
+									{{listItem.lastName}}</div>
+								<div class="product-description">{{listItem.parentDetail.fatherFullName}}</div>
+								<!-- <p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating> -->
+								<div class="product-description">{{listItem.parentDetail.fatherContactNumber}}</div>
+							</div>
+							<div class="product-grid-item-bottom">
+								<span
+									class="product-price">{{listItem.masterClassName}}-{{listItem.masterSectionName}}</span>
+								<p-button icon="pi pi-id-card"></p-button>
+							</div>
+						</div>
+					</div>
+				</ng-template>
+			</p-dataView>
+		</p-panel>
+	</div>
+
+
+</div>

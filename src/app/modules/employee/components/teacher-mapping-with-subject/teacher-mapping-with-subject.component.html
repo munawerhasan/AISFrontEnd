@@ -1,0 +1,111 @@
+ <p-toast></p-toast>
+<div class="p-grid">
+    <div class="p-col">
+        <p-panel header="Mapping Teacher With Subject">
+            <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                <div class="p-grid">
+                    <div class="p-col-12 p-md-4 p-sm-12">
+                        <p-listbox [options]="employeeData" (onClick)="onSelectTeacher($event)"  formControlName="teacherUserId"
+                            [listStyle]="{'max-height':'290px'}" [style]="{'width':'auto'}" [multiple]="true"
+                            optionLabel="name" [filter]="true">
+                        </p-listbox>
+                        <small class="messages text-danger" *ngIf="form.controls.teacherUserId.errors?.required 
+                        && (form.controls.teacherUserId.dirty || form.controls.teacherUserId.touched) || 
+                        (submitted && form.controls.teacherUserId.errors?.required)">Class Required</small>
+                    </div>
+                    <div class="p-col-12 p-md-8">
+                        <div class="p-grid">
+                            <div class="p-col-12 p-md-6 p-sm-6">
+                                <p-dropdown [options]="classData" formControlName="masterClassId" filter="true"
+                                    [style]="{'width':'12rem'}" (onChange)="onSelectClass($event)"
+                                    placeholder="Select a Class" optionLabel="name">
+                                </p-dropdown>
+                                <small class="messages text-danger" *ngIf="form.controls.masterClassId.errors?.required 
+                                && (form.controls.masterClassId.dirty || form.controls.masterClassId.touched) || 
+                                (submitted && form.controls.masterClassId.errors?.required)">Class Required</small>
+                            </div>
+                            <div class="p-col-12 p-md-6 p-sm-6">
+                                <p-dropdown [options]="sectionData" formControlName="masterSectionId" filter="true"
+                                    placeholder="Select a Section" [style]="{'width':'13rem'}"
+                                    (onChange)="onSelectSection($event)" optionLabel="name">
+                                </p-dropdown>
+                                <small class="messages text-danger" *ngIf="form.controls.masterSectionId.errors?.required 
+                            && (form.controls.masterSectionId.dirty || form.controls.masterSectionId.touched) || 
+                            (submitted && form.controls.masterSectionId.errors?.required)">Section Required</small>
+                            </div>
+                        </div>
+                        <div class="p-grid">
+                            <div class="p-col-12 p-md-12">
+                                <p-listbox [options]="subjectMaster" [checkbox]="true"  formControlName="masterSubjectId"
+                                    [listStyle]="{'max-height':'250px'}" (onClick)="onSelectSubject($event)"
+                                    [style]="{'width':'auto'}" optionLabel="subjectName" [filter]="true">
+                                </p-listbox>
+                                <small class="messages text-danger" *ngIf="form.controls.masterSubjectId.errors?.required 
+                            && (form.controls.masterSubjectId.dirty || form.controls.masterSubjectId.touched) || 
+                            (submitted && form.controls.masterSubjectId.errors?.required)">Subject Required</small>
+                            </div>
+                        </div>
+                    </div>
+                    <p-button label="Add Mapping" icon="pi pi-check" type="submit" class="p-button p-p-0 p-mr-2">
+                    </p-button>
+                    <p-button label="Mapping List" icon="pi pi-check" (click)="mappingList()" class="p-button p-p-0 p-mr-2">
+                    </p-button>
+                    <!-- <button type="submit"  class="btn btn-primary ripple light pull-right"> Add Mapping </button> -->
+
+                </div>
+            </form>
+        </p-panel>
+    </div>
+    <div class="p-col">
+        <p-panel header="Selected Teacher Mapping Details">
+            <small><div class="p-text-bold p-text-center p-pt-0 p-m-1">Selected Teacher Name: {{teacherName}}</div></small>
+            <p-table #dtc [value]="data" dataKey="id" [rowHover]="true"
+                styleClass="p-datatable-customers p-datatable-gridlines p-datatable-striped p-datatable-sm"
+                [scrollable]="true" scrollHeight="600px" [filterDelay]="0"
+                [globalFilterFields]="['className','sectionName','subjectName']" [paginator]="true" [rows]="rows"
+                [showCurrentPageReport]="true" [(first)]="first"
+                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                [rowsPerPageOptions]="[10,25,50]">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th pSortableColumn="className">Class Name
+                            <p-sortIcon field="className"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="sectionName">Section Name
+                            <p-sortIcon field="sectionName"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="subjectName">Subject Name
+                            <p-sortIcon field="subjectName"></p-sortIcon>
+                        </th>
+                        <th>
+                            Action
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-batch>
+                    <tr [pSelectableRow]="batch">
+                        <td>
+                            <span class="p-column-title">Class Name</span>
+                            {{batch.className}}
+                        </td>
+                        <td>
+                            <span class="p-column-title">Section Name</span>
+                            {{batch.sectionName}}
+                        </td>
+                        <td>
+                            <span class="p-column-title">Subject Names</span>
+                            {{batch.subjectName}}
+                        </td>
+                        <td> <a><i class="pi pi-trash"></i></a></td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                        <td colspan="8">No data found.</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </p-panel>
+    </div>
+</div>
+
